@@ -1,3 +1,4 @@
+
 -- 0. zad
 use master;
 go
