@@ -119,11 +119,25 @@ where d.hlace like 'a%' and c.haljina like '%ba%' order by e.hlace desc;
 
 
 -- 6. zad
-select haljina, maraka
+select a.haljina, a.maraka
 from sestra a
 left join sestra_svekar b on b.sestra=a.sifra
 where b.sestra is null
 
+select * from sestra
+
+select * from sestra_svekar
+
+delete from sestra
+
+insert into sestra (introvertno, haljina, maraka, hlace, narukvica) values
+	(1, 'crvena haljina', 10.5, 'plave rifle', 5),
+	(0, 'plava haljina', 10.5, 'ljubicaste rifle', 1),
+	(1, 'zuta haljina', 133.2, 'kratke rifle', 50);
 
 
+insert into svekar (bojaociju) values
+	('crvena');
+
+insert into sestra_svekar values (2, 1);
 
