@@ -9,7 +9,7 @@ namespace WebAPIDemo.Controllers
         [HttpGet]
         public string GetBooks()
         {
-            return "izlistavam sve knjige.";
+            return "Izlistavam sve knjige.";
         }
 
         [HttpGet("{ID}")]
