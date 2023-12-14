@@ -3,38 +3,34 @@
 namespace WebAPIDemo.Controllers
 {
     [ApiController]
+    [Route("api/[Controller]")]
     public class BooksController: ControllerBase
     {
         [HttpGet]
-        [Route("/books")]
         public string GetBooks()
         {
             return "izlistavam sve knjige.";
         }
 
-        [HttpGet]
-        [Route("/books/{ID}")]
+        [HttpGet("{ID}")]
         public string GetBookByID(int ID)
         {
             return $"Iščitavam knjigu: {ID}";
         }
 
         [HttpPost]
-        [Route("/books")]
         public string CreateBook() 
         {
             return $"Kreiram knjigu.";
         }
 
-        [HttpPut]
-        [Route("/books/{ID}")]
+        [HttpPut("{ID}")]
         public string UpdateBook(int ID)
         {
             return $"Ažuriram knjigu: {ID}";
         }
 
-        [HttpDelete]
-        [Route("/books/{ID}")]
+        [HttpDelete("{ID}")]
         public string DeleteBook(int ID)
         {
             return $"Brišem knjigu: {ID}";
