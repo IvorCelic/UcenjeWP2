@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPIDemo.Models;
+using WebAPIDemo.Models.Repositories;
 
 namespace WebAPIDemo.Controllers
 {
@@ -7,17 +8,12 @@ namespace WebAPIDemo.Controllers
     [Route("api/[Controller]")]
     public class BooksController: ControllerBase
     {
-        private List<Book> books = new List<Book>()
-        {
-            new Book {BookID = 1, Title = "Rat i Mir", Author = "Lav Nikolajevič Tolstoj", Category = "Roman", NumberOfPages = 100, Price = 30},
-            new Book {BookID = 2, Title = "Siddartha", Author = "Herman Hesse", Category = "Roman", NumberOfPages = 143, Price = 15}
-        };
-
         [HttpGet]
         public IActionResult GetBooks()
         {
             return Ok("Izlistavam sve knjige.");
         }
+
 
         [HttpGet("{ID}")]
         public IActionResult GetBookByID(int ID)
@@ -25,12 +21,13 @@ namespace WebAPIDemo.Controllers
             if (ID <= 0)
                 return BadRequest();
 
-            var book = books.First(x => x.BookID == ID);
+            var book = BookRepository.GetBookByID(ID);
             if (book == null)
                 return NotFound();
 
             return Ok(book);
         }
+
 
         [HttpPost]
         public IActionResult CreateBook([FromBody]Book book) 
@@ -38,11 +35,13 @@ namespace WebAPIDemo.Controllers
             return Ok($"Kreiram knjigu.");
         }
 
+
         [HttpPut("{ID}")]
         public IActionResult UpdateBook(int ID)
         {
             return Ok($"Ažuriram knjigu: {ID}");
         }
+
 
         [HttpDelete("{ID}")]
         public IActionResult DeleteBook(int ID)
