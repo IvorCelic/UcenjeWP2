@@ -9,8 +9,8 @@ namespace WebAPIDemo.Controllers
     {
         private List<Book> books = new List<Book>()
         {
-            new Book {BookID = 1, Title = "Rat i Mir", Author = "Lav Nikolajevič Tolstoj", Category = "Roman", Price = 30},
-            new Book {BookID = 2, Title = "Siddartha", Author = "Herman Hesse", Category = "Roman", Price = 15}
+            new Book {BookID = 1, Title = "Rat i Mir", Author = "Lav Nikolajevič Tolstoj", Category = "Roman", NumberOfPages = 100, Price = 30},
+            new Book {BookID = 2, Title = "Siddartha", Author = "Herman Hesse", Category = "Roman", NumberOfPages = 143, Price = 15}
         };
 
         [HttpGet]

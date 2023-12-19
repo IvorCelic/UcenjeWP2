@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebAPIDemo.Models.Validations;
 
 namespace WebAPIDemo.Models
 {
@@ -17,6 +18,11 @@ namespace WebAPIDemo.Models
 
         [Required]
         public string? Category { get; set; }
+
+
+        [Book_EnsureCorrectNumberOfPages]
+        public int? NumberOfPages { get; set; }
+        
         public double Price { get; set; }
     }
 }
