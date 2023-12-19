@@ -7,34 +7,47 @@ namespace WebAPIDemo.Controllers
     [Route("api/[Controller]")]
     public class BooksController: ControllerBase
     {
-        [HttpGet]
-        public string GetBooks()
+        private List<Book> books = new List<Book>()
         {
-            return "Izlistavam sve knjige.";
+            new Book {BookID = 1, Title = "Rat i Mir", Author = "Lav Nikolajevič Tolstoj", Category = "Roman", Price = 30},
+            new Book {BookID = 2, Title = "Siddartha", Author = "Herman Hesse", Category = "Roman", Price = 15}
+        };
+
+        [HttpGet]
+        public IActionResult GetBooks()
+        {
+            return Ok("Izlistavam sve knjige.");
         }
 
         [HttpGet("{ID}")]
-        public string GetBookByID(int ID)
+        public IActionResult GetBookByID(int ID)
         {
-            return $"Iščitavam knjigu: {ID}";
+            if (ID <= 0)
+                return BadRequest();
+
+            var book = books.First(x => x.BookID == ID);
+            if (book == null)
+                return NotFound();
+
+            return Ok(book);
         }
 
         [HttpPost]
-        public string CreateBook([FromBody]Book book) 
+        public IActionResult CreateBook([FromBody]Book book) 
         {
-            return $"Kreiram knjigu.";
+            return Ok($"Kreiram knjigu.");
         }
 
         [HttpPut("{ID}")]
-        public string UpdateBook(int ID)
+        public IActionResult UpdateBook(int ID)
         {
-            return $"Ažuriram knjigu: {ID}";
+            return Ok($"Ažuriram knjigu: {ID}");
         }
 
         [HttpDelete("{ID}")]
-        public string DeleteBook(int ID)
+        public IActionResult DeleteBook(int ID)
         {
-            return $"Brišem knjigu: {ID}";
+            return Ok($"Brišem knjigu: {ID}");
         }
     }
 }
