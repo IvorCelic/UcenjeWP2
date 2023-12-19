@@ -20,7 +20,7 @@ namespace WebAPIDemo.Controllers
         }
 
         [HttpPost]
-        public string CreateBook([FromForm]Book book) 
+        public string CreateBook([FromBody]Book book) 
         {
             return $"Kreiram knjigu.";
         }
