@@ -8,6 +8,9 @@ namespace WebAPI.Controllers
     public class V01 : ControllerBase
     {
 
+
+        // Prima tri marametra: dva cijela broja i string.
+        // String može biti "+, -, *, /". Ruta vraća rezultat
         [HttpGet]
         [Route("vjezba1")]
         public int Vj1(int x, string s, int z)
@@ -26,5 +29,26 @@ namespace WebAPI.Controllers
 
             return 0;
         }
+
+
+        // Prima niz decimalnih brojeva. Vraća zbroj cijelog dijela
+        // prvog elementa niza i decimalnog dijela zadnjeg elementa niza
+        [HttpPost]
+        [Route("vjezba2")]
+        public decimal Vj2(decimal[] Niz)
+        {
+            if (Niz.Length == 0)
+            {
+                return 0;
+            }
+
+            int PrviElement = (int)Niz[0];
+            decimal ZadnjiElement = Niz[Niz.Length - 1] % 1;
+            var Zbroj = PrviElement + ZadnjiElement;
+
+            return Zbroj;
+        }
+
+
     }
 }
