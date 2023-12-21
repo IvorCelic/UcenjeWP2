@@ -48,5 +48,16 @@
             books.Add(book);
         }
 
+        public static void UpdateBook(Book book)
+        {
+            var bookToUpdate = books.First(x => x.BookID == book.BookID);
+            bookToUpdate.Title = book.Title;
+            bookToUpdate.Author = book.Author;
+            bookToUpdate.Category = book.Category;
+            bookToUpdate.NumberOfPages = book.NumberOfPages;
+            bookToUpdate.Price = book.Price;
+
+        }
+
     }
 }

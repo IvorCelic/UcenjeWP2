@@ -37,9 +37,23 @@ namespace WebAPIDemo.Controllers
 
 
         [HttpPut("{ID}")]
-        public IActionResult UpdateBook(int ID)
+        [Book_ValidateBookIDFilter]
+        [Book_ValidateUpdateBookFilter]
+        public IActionResult UpdateBook(int ID, Book book)
         {
-            return Ok($"Ažuriram knjigu: {ID}");
+            try
+            {
+                BookRepository.UpdateBook(book);
+            }
+            catch
+            {
+                if (!BookRepository.BookExists(ID))
+                    return NotFound();
+
+                throw;
+            }
+
+            return NoContent();
         }
 
 
