@@ -3,7 +3,7 @@ using WebAPIDemo.Models.Repositories;
 using WebAPIDemo.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPIDemo.Filters
+namespace WebAPIDemo.Filters.ActionFilters
 {
     public class Book_ValidateCreateBookFilterAttribute : ActionFilterAttribute
     {

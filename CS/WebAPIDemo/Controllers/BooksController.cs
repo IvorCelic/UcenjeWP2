@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAPIDemo.Filters;
+using WebAPIDemo.Filters.ActionFilters;
+using WebAPIDemo.Filters.ExceptionFilters;
 using WebAPIDemo.Models;
 using WebAPIDemo.Models.Repositories;
 
@@ -39,19 +40,11 @@ namespace WebAPIDemo.Controllers
         [HttpPut("{ID}")]
         [Book_ValidateBookIDFilter]
         [Book_ValidateUpdateBookFilter]
+        [Book_HandleUpdateExceptionsFilter]
+
         public IActionResult UpdateBook(int ID, Book book)
         {
-            try
-            {
-                BookRepository.UpdateBook(book);
-            }
-            catch
-            {
-                if (!BookRepository.BookExists(ID))
-                    return NotFound();
-
-                throw;
-            }
+            BookRepository.UpdateBook(book);
 
             return NoContent();
         }
