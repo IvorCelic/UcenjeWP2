@@ -8,6 +8,11 @@
             new Book {BookID = 2, Title = "Siddartha", Author = "Herman Hesse", Category = "Roman", NumberOfPages = 143, Price = 15}
         };
 
+        public static List<Book> GetBooks()
+        {
+            return books;
+        }
+
         public static bool BookExists(int ID)
         {
             return books.Any(x => x.BookID == ID);

@@ -12,7 +12,7 @@ namespace WebAPIDemo.Controllers
         [HttpGet]
         public IActionResult GetBooks()
         {
-            return Ok("Izlistavam sve knjige.");
+            return Ok(BookRepository.GetBooks());
         }
 
 
