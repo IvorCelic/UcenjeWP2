@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebAPIDemo.Filters;
 using WebAPIDemo.Models;
 using WebAPIDemo.Models.Repositories;
 
@@ -16,16 +17,10 @@ namespace WebAPIDemo.Controllers
 
 
         [HttpGet("{ID}")]
+        [Book_ValidateBookIDFilter]
         public IActionResult GetBookByID(int ID)
         {
-            if (ID <= 0)
-                return BadRequest();
-
-            var book = BookRepository.GetBookByID(ID);
-            if (book == null)
-                return NotFound();
-
-            return Ok(book);
+            return Ok(BookRepository.GetBookByID(ID));
         }
 
 
