@@ -25,13 +25,9 @@ namespace WebAPIDemo.Controllers
 
 
         [HttpPost]
+        [Book_ValidateCreateBookFilter]
         public IActionResult CreateBook([FromBody]Book book) 
         {
-            if (book == null) return BadRequest();
-
-            var existingBook = BookRepository.GetBookByProperties(book.Title, book.Author, book.Category, book.NumberOfPages);
-            if (existingBook != null) return BadRequest();
-
             BookRepository.AddBook(book);
 
             return CreatedAtAction(nameof(GetBookByID),
