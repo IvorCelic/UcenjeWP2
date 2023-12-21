@@ -51,9 +51,15 @@ namespace WebAPIDemo.Controllers
 
 
         [HttpDelete("{ID}")]
+        [Book_ValidateBookIDFilter]
         public IActionResult DeleteBook(int ID)
         {
-            return Ok($"Brišem knjigu: {ID}");
+            var book = BookRepository.GetBookByID(ID);
+
+            BookRepository.DeleteBook(ID);
+
+            return Ok(book);
         }
+
     }
 }

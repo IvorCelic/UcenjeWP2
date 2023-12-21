@@ -59,5 +59,15 @@
 
         }
 
+        public static void DeleteBook(int bookID)
+        {
+            var book = GetBookByID(bookID);
+            if (book != null)
+            {
+                books.Remove(book);
+            }
+
+        }
+
     }
 }
