@@ -27,7 +27,16 @@ namespace WebAPIDemo.Controllers
         [HttpPost]
         public IActionResult CreateBook([FromBody]Book book) 
         {
-            return Ok($"Kreiram knjigu.");
+            if (book == null) return BadRequest();
+
+            var existingBook = BookRepository.GetBookByProperties(book.Title, book.Author, book.Category, book.NumberOfPages);
+            if (existingBook != null) return BadRequest();
+
+            BookRepository.AddBook(book);
+
+            return CreatedAtAction(nameof(GetBookByID),
+                new { ID = book.BookID },
+                book);
         }
 
 

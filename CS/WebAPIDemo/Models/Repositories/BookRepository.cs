@@ -23,5 +23,30 @@
             return books.FirstOrDefault(x => x.BookID == ID);
         }
 
+        public static Book? GetBookByProperties(string? title, string? author, string? category, int? numberofpages)
+        {
+            return books.FirstOrDefault(x =>
+                !string.IsNullOrWhiteSpace(title) &&
+                !string.IsNullOrWhiteSpace(x.Title) &&
+                x.Title.Equals(title, StringComparison.OrdinalIgnoreCase) &&
+                !string.IsNullOrWhiteSpace(author) &&
+                !string.IsNullOrWhiteSpace(x.Author) &&
+                x.Author.Equals(author, StringComparison.OrdinalIgnoreCase) &&
+                !string.IsNullOrWhiteSpace(category) &&
+                !string.IsNullOrWhiteSpace(x.Category) &&
+                x.Category.Equals(category, StringComparison.OrdinalIgnoreCase) &&
+                numberofpages.HasValue &&
+                x.NumberOfPages.HasValue &&
+                numberofpages.Value == x.NumberOfPages.Value);
+        }
+
+        public static void AddBook(Book book)
+        {
+            int maxID = books.Max(x => x.BookID);
+            book.BookID = maxID + 1;
+
+            books.Add(book);
+        }
+
     }
 }
