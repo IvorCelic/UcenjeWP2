@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 namespace WebAPI.Controllers
 {
@@ -9,9 +10,21 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("vjezba1")]
-        public int Vj1(int x, string i, int z)
+        public int Vj1(int x, string s, int z)
         {
-            return x + int.Parse(i) + z;   
+            switch (s)
+            {
+                case "+":
+                    return x + z;
+                case "-":
+                    return x - z;
+                case "*":
+                    return x * z;
+                case "/":
+                    return x / z;
+            }
+
+            return 0;
         }
     }
 }
