@@ -8,8 +8,7 @@ namespace WebAPI.Controllers
     public class V01 : ControllerBase
     {
 
-
-        // Prima tri marametra: dva cijela broja i string.
+        // Ruta prima tri marametra: dva cijela broja i string.
         // String može biti "+, -, *, /". Ruta vraća rezultat
         [HttpGet]
         [Route("vjezba1")]
@@ -24,6 +23,14 @@ namespace WebAPI.Controllers
                 case "*":
                     return x * z;
                 case "/":
+                    if (x == 0)
+                    {
+                        return 0;
+                    }
+                    if (z == 0)
+                    {
+                        return 0;
+                    }
                     return x / z;
             }
 
@@ -31,7 +38,8 @@ namespace WebAPI.Controllers
         }
 
 
-        // Prima niz decimalnih brojeva. Vraća zbroj cijelog dijela
+
+        // Ruta prima niz decimalnih brojeva. Vraća zbroj cijelog dijela
         // prvog elementa niza i decimalnog dijela zadnjeg elementa niza
         [HttpPost]
         [Route("vjezba2")]
