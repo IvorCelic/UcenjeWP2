@@ -171,6 +171,7 @@ namespace WebAPI.Controllers
             int manji = broj1 < broj2 ? broj1 : broj2;
             int veci = broj1 > broj2 ? broj1: broj2;
             int suma = 0;
+
             for (int i = manji; i <= veci; i++)
             {
                 suma += i;
@@ -178,6 +179,26 @@ namespace WebAPI.Controllers
             return suma; 
         }
 
+
+
+        // Ruta prima dva parametra koji su cijeli brojevi i vraća zbroj svih brojeva između primljenih brojeva koji su cjelobrojno djeljivi s 3
+        [HttpGet]
+        [Route("ZimskiZad08")]
+        public int Zad08(int broj1, int broj2)
+        {
+            int manji = broj1 < broj2 ? broj1 : broj2;
+            int veci = broj1 > broj2 ? broj1 : broj2;
+            int suma = 0;
+
+            for (int i = manji; i <= veci; i++)
+            {
+                if (i % 3 == 0)
+                {
+                    suma += i;
+                }
+            }
+            return suma;
+        }
 
     }
 }
