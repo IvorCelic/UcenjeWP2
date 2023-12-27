@@ -162,5 +162,22 @@ namespace WebAPI.Controllers
         }
 
 
+
+        // Ruta prima dva parametra koji su cijeli brojevi i vraća zbroj svih brojeva između primljenih brojeva
+        [HttpGet]
+        [Route("ZimskiZad07")]
+        public int Zad07(int broj1, int broj2)
+        {
+            int manji = broj1 < broj2 ? broj1 : broj2;
+            int veci = broj1 > broj2 ? broj1: broj2;
+            int suma = 0;
+            for (int i = manji; i <= veci; i++)
+            {
+                suma += i;
+            }
+            return suma; 
+        }
+
+
     }
 }
