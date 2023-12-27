@@ -224,5 +224,24 @@ namespace WebAPI.Controllers
             return suma;
         }
 
+
+
+        // Ruta prima dva parametra koji su cijeli brojevi i vraća dvodimenzionalni niz (matricu) koja sadrži tablicu množenja za dva primljena broja
+        [HttpGet]
+        [Route("ZimskiZad10")]
+        public int Zad10(int broj1, int broj2)
+        {
+            for (int i = 1; i < broj1; i++)
+            {
+                for (int j = 1; j < broj2; j++)
+                {
+                }
+            }
+
+            return 0;
+        }
+
+
+
     }
 }
