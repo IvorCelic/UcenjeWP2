@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
+using System.Text;
 
 namespace WebAPI.Controllers
 {
@@ -25,7 +27,7 @@ namespace WebAPI.Controllers
 
 
 
-        // Ruta ne prima niti jedan parametar i vraća niz s svim parnim brojevima od 1 do 57
+        // Ruta ne prima niti jedan parametar i vraća niz sa svim parnim brojevima od 1 do 57
         [HttpGet]
         [Route("ZimskiZad02")]
         public int[] Zad02()
@@ -226,22 +228,25 @@ namespace WebAPI.Controllers
 
 
 
-        // Ruta prima dva parametra koji su cijeli brojevi i vraća dvodimenzionalni niz (matricu) koja sadrži tablicu množenja za dva primljena broja
+        // Ruta prima dva parametra koji su cijeli brojevi i vraća dvodimenzionalni niz (matricu) koji sadrži tablicu množenja za dva primljena broja
         [HttpGet]
         [Route("ZimskiZad10")]
-        public int Zad10(int broj1, int broj2)
+        public int[,] Zad10(int broj1, int broj2)
         {
-            for (int i = 1; i < broj1; i++)
+            int[,] tablicaMnozenja = new int[broj1, broj2];
+
+            for (int i = 0; i < broj1; i++)
             {
-                for (int j = 1; j < broj2; j++)
+                for (int j = 0; j < broj2; j++)
                 {
+                    tablicaMnozenja[i, j] = (i + 1) * (j + 1);
                 }
             }
 
-            return 0;
+            return tablicaMnozenja;
+
+
         }
-
-
 
     }
 }
