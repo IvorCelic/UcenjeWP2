@@ -51,7 +51,7 @@
             // ZAD 4
             Console.WriteLine("Napisati program koji unosi brojeve sve dok ne unese broje veći od 100,");
             Console.WriteLine("a zatim ispisuje koliko je bilo pokušaja unosa.");
-            int Broj = 0;
+            int Broj;
             for (int Brojac = 1; ; )
             {
                 Console.Write("Unesite broj veći od 100: ");
