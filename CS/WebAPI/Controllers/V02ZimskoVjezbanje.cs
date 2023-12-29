@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
 
             for (int i = 2; i < 57; i += 2)
             {
-                    parniBrojevi[broj++] = i;
+                parniBrojevi[broj++] = i;
             }
 
             return parniBrojevi;
@@ -171,7 +171,7 @@ namespace WebAPI.Controllers
         public int Zad07(int broj1, int broj2)
         {
             int manji = broj1 < broj2 ? broj1 : broj2;
-            int veci = broj1 > broj2 ? broj1: broj2;
+            int veci = broj1 > broj2 ? broj1 : broj2;
             int suma = 0;
 
             for (int i = manji; i <= veci; i++)
@@ -179,7 +179,7 @@ namespace WebAPI.Controllers
                 suma += i;
             }
 
-            return suma; 
+            return suma;
         }
 
 
@@ -231,22 +231,34 @@ namespace WebAPI.Controllers
         // Ruta prima dva parametra koji su cijeli brojevi i vraća dvodimenzionalni niz (matricu) koji sadrži tablicu množenja za dva primljena broja
         [HttpGet]
         [Route("ZimskiZad10")]
-        public int[,] Zad10(int broj1, int broj2)
+        public string Zad10(int broj1, int broj2)
         {
-            int[,] tablicaMnozenja = new int[broj1, broj2];
+            string[,] tablicaMnozenja = new string[broj1, broj2];
 
             for (int i = 0; i < broj1; i++)
             {
                 for (int j = 0; j < broj2; j++)
                 {
-                    tablicaMnozenja[i, j] = (i + 1) * (j + 1);
+                    tablicaMnozenja[i, j] = ((i + 1) * (j + 1)).ToString();
                 }
             }
 
-            return tablicaMnozenja;
+            StringBuilder matricaNiz = new StringBuilder(); // StringBuilder -> pruža promjenjivi niz znakova
+
+            for (int i = 0; i < broj1; i++)
+            {
+                for (int j = 0; j < broj2; j++)
+                {
+                    matricaNiz.Append(tablicaMnozenja[i, j] + "\t");
+                }
+                matricaNiz.AppendLine(); // Prelazi na sljedeći redak za novi red(broj1)
+            }
+
+            return matricaNiz.ToString();
 
 
         }
+
 
     }
 }
