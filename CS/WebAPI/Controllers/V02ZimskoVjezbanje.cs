@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -303,6 +304,41 @@ namespace WebAPI.Controllers
 
             return string.Join(", ", nizBrojeva);
         }
+
+
+
+        // Ruta prima cijeli broj i vraća logičku istinu ako je primljeni broj prosti (prim - prime) broj, odnosno logičku laž ako nije
+        [HttpGet]
+        [Route("Zimskizad12")]
+        public bool Zad12(int broj)
+        {
+            if (broj < 2)
+            {
+                return false;
+            }
+
+            if (broj % 2 == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
+
+        // Ruta prima dva parametra koji su cijeli brojevi te vraća dvodimenzionalni niz (matricu) cijelih brojeva koji su složeni prema slici zadatka:
+        // Ciklična matrica
+        [HttpGet]
+        [Route("ZimskiZad13")]
+        public string Zad13(int broj1, int broj2)
+        {
+
+            return "NISAM GOTOV";
+        }
+
+
+
 
     }
 }
