@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Eventing.Reader;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
@@ -255,10 +256,53 @@ namespace WebAPI.Controllers
             }
 
             return matricaNiz.ToString();
-
-
         }
 
+
+
+        // Ruta prima jedan parametar koji je cijeli broj i vraća niz cijelih brojeva koji su složeni od primljenog broja do broja 1
+        [HttpGet]
+        [Route("ZimskiZad11")]
+        public string Zad11(int broj)
+        {
+            int niz = 0;
+
+            if (broj < 1)
+            {
+                for (int i = broj; i <= 1; i++)
+                {
+                    niz++;
+                }
+            }
+            else
+            {
+                for (int i = broj; i >= 1; i--)
+                {
+                    niz++;
+                }
+
+            }
+
+            int[] nizBrojeva = new int[niz];
+            int index = 0;
+
+            if (broj < 1)
+            {
+                for (int i = broj; i <= 1; i++)
+                {
+                    nizBrojeva[index++] = i;
+                }
+            }
+            else
+            {
+                for (int i = broj; i >= 1; i--)
+                {
+                    nizBrojeva[index++] = i;
+                }
+            }
+
+            return string.Join(", ", nizBrojeva);
+        }
 
     }
 }
