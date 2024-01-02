@@ -1,8 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using System.Buffers.Text;
+using System;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Reflection.Metadata;
 
 namespace WebAPI.Controllers
 {
@@ -131,6 +138,9 @@ namespace WebAPI.Controllers
 
         public string Zad06(int broj1, int broj2)
         {
+            int manji = broj1 < broj2 ? broj1 : broj2;
+            int veci = broj1 > broj2 ? broj1 : broj2;
+
             if (broj1 % 2 != 0)
             {
                 broj1++;
@@ -333,8 +343,88 @@ namespace WebAPI.Controllers
         [Route("ZimskiZad13")]
         public string Zad13(int broj1, int broj2)
         {
+            StringBuilder ciklicnaMatrica = new StringBuilder();
+            string[,] dvodimenzionalniNiz = new string[broj1, broj2];
+            int pocetak = broj1 * broj2;
 
-            return "NISAM GOTOV";
+            for (int i = 0; i < broj1; i++)
+            {
+                for (int j = 0; j < broj2; j++)
+                {
+                    dvodimenzionalniNiz[i, j] = pocetak--.ToString();
+                }
+            }
+
+            for (int i = 0; i < broj1; i++)
+            {
+                for (int j = 0; j < broj2; j++)
+                {
+                    ciklicnaMatrica.Append(dvodimenzionalniNiz[i, j] + "\t");
+                }
+
+                ciklicnaMatrica.AppendLine();
+            }
+
+            return ciklicnaMatrica.ToString();
+        }
+
+
+
+
+        [HttpGet]
+        [Route("ZimskiZad14")]
+        public string Zad14(int broj1, int broj2)
+        {
+            StringBuilder matricaNiz = new StringBuilder();
+            string[,] dvodimenzionalniNiz = new string[broj1, broj2];
+            int value = 1;
+            int rowStart = 0;
+            int rowEnd = broj1 - 1;
+            int colStart = 0;
+            int colEnd = broj2 - 1;
+            while (rowStart <= rowEnd && colStart <= colEnd)
+            {
+                for (int i = colStart; i <= colEnd; i++)
+                {
+                    dvodimenzionalniNiz[rowStart, i] = value++.ToString();
+                }
+                rowStart++;
+                for (int i = rowStart; i <= rowEnd; i++)
+                {
+                    dvodimenzionalniNiz[i, colEnd] = value++.ToString();
+                }
+                colEnd--;
+
+                if (rowStart <= rowEnd)
+                {
+                    for (int i = colEnd; i >= colStart; i--)
+                    {
+                        dvodimenzionalniNiz[rowEnd, i] = value++.ToString();
+                    }
+                    rowEnd--;
+                }
+
+                if (colStart <= colEnd)
+                {
+                    for (int i = rowEnd; i >= rowStart; i--)
+                    {
+                        dvodimenzionalniNiz[i, colStart] = value++.ToString();
+                    }
+                    colStart++;
+                }
+            }
+
+            for (int i = 0; i < broj1; i++)
+            {
+                for (int j = 0; j < broj2; j++)
+                {
+                    matricaNiz.Append(dvodimenzionalniNiz[i, j] + "\t");
+                }
+
+                matricaNiz.AppendLine();
+            }
+
+            return matricaNiz.ToString();
         }
 
 
