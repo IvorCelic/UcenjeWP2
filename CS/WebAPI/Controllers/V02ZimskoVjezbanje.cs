@@ -345,13 +345,48 @@ namespace WebAPI.Controllers
         {
             StringBuilder ciklicnaMatrica = new StringBuilder();
             string[,] dvodimenzionalniNiz = new string[broj1, broj2];
-            int pocetak = broj1 * broj2;
+            int brojanje = broj1 * broj2;
+            int redPoc = broj1 - 1;
+            int redKraj = 0;
+            int kolPoc = broj2 - 1;
+            int kolKraj = 0;
 
-            for (int i = 0; i < broj1; i++)
+            while (redPoc >= redKraj && kolPoc >= kolKraj)
             {
-                for (int j = 0; j < broj2; j++)
+                // Petlja za popunjavanje gornje strane matrice
+                for (int i = kolPoc; i >= kolKraj; i--)
                 {
-                    dvodimenzionalniNiz[i, j] = pocetak--.ToString();
+                    dvodimenzionalniNiz[redPoc, i] = brojanje--.ToString();
+                }
+                redPoc--;
+
+                // Petlja za popunjavanje desne strane matrice
+                for (int i = redPoc; i >= redKraj; i--)
+                {
+                    dvodimenzionalniNiz[i, kolKraj] = brojanje--.ToString();
+                }
+                kolKraj++;
+
+                // Pregledava ima li donja strana za popuniti
+                if (redPoc >= redKraj)
+                {
+                    // Petlja za popunjavanje donje strane matrice
+                    for (int i = kolKraj; i >= kolPoc; i--)
+                    {
+                        dvodimenzionalniNiz[redKraj, i] = brojanje--.ToString();
+                    }
+                    redKraj++;
+                }
+
+                // Pregledava ima li lijeva strana za popuniti
+                if (kolPoc >= kolKraj)
+                {
+                    // Petlja za popunjavanje lijeve strane matrice
+                    for (int i = redKraj; i >= redPoc; i--)
+                    {
+                        dvodimenzionalniNiz[i, kolPoc] = brojanje--.ToString();
+                    }
+                    kolPoc--;
                 }
             }
 
@@ -367,67 +402,6 @@ namespace WebAPI.Controllers
 
             return ciklicnaMatrica.ToString();
         }
-
-
-
-
-        [HttpGet]
-        [Route("ZimskiZad14")]
-        public string Zad14(int broj1, int broj2)
-        {
-            StringBuilder matricaNiz = new StringBuilder();
-            string[,] dvodimenzionalniNiz = new string[broj1, broj2];
-            int value = 1;
-            int rowStart = 0;
-            int rowEnd = broj1 - 1;
-            int colStart = 0;
-            int colEnd = broj2 - 1;
-            while (rowStart <= rowEnd && colStart <= colEnd)
-            {
-                for (int i = colStart; i <= colEnd; i++)
-                {
-                    dvodimenzionalniNiz[rowStart, i] = value++.ToString();
-                }
-                rowStart++;
-                for (int i = rowStart; i <= rowEnd; i++)
-                {
-                    dvodimenzionalniNiz[i, colEnd] = value++.ToString();
-                }
-                colEnd--;
-
-                if (rowStart <= rowEnd)
-                {
-                    for (int i = colEnd; i >= colStart; i--)
-                    {
-                        dvodimenzionalniNiz[rowEnd, i] = value++.ToString();
-                    }
-                    rowEnd--;
-                }
-
-                if (colStart <= colEnd)
-                {
-                    for (int i = rowEnd; i >= rowStart; i--)
-                    {
-                        dvodimenzionalniNiz[i, colStart] = value++.ToString();
-                    }
-                    colStart++;
-                }
-            }
-
-            for (int i = 0; i < broj1; i++)
-            {
-                for (int j = 0; j < broj2; j++)
-                {
-                    matricaNiz.Append(dvodimenzionalniNiz[i, j] + "\t");
-                }
-
-                matricaNiz.AppendLine();
-            }
-
-            return matricaNiz.ToString();
-        }
-
-
 
 
     }
