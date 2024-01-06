@@ -245,28 +245,28 @@ namespace WebAPI.Controllers
         [Route("ZimskiZad10")]
         public string Zad10(int broj1, int broj2)
         {
-            string[,] tablicaMnozenja = new string[broj1, broj2];
+            int[,] tablicaMnozenja = new int[broj1, broj2];
 
             for (int i = 0; i < broj1; i++)
             {
                 for (int j = 0; j < broj2; j++)
                 {
-                    tablicaMnozenja[i, j] = ((i + 1) * (j + 1)).ToString();
+                    tablicaMnozenja[i, j] = ((i + 1) * (j + 1));
                 }
             }
 
-            StringBuilder matricaNiz = new StringBuilder(); // StringBuilder -> pruža promjenjivi niz znakova
+            StringBuilder sb = new StringBuilder(); // StringBuilder -> pruža promjenjivi niz znakova
 
             for (int i = 0; i < broj1; i++)
             {
                 for (int j = 0; j < broj2; j++)
                 {
-                    matricaNiz.Append(tablicaMnozenja[i, j] + "\t");
+                    sb.Append(tablicaMnozenja[i, j] + "\t");
                 }
-                matricaNiz.AppendLine(); // Prelazi na sljedeći redak za novi red(broj1)
+                sb.AppendLine(); // Prelazi na sljedeći redak za novi red(broj1)
             }
 
-            return matricaNiz.ToString();
+            return sb.ToString();
         }
 
 
@@ -337,70 +337,67 @@ namespace WebAPI.Controllers
 
 
 
-        // Ruta prima dva parametra koji su cijeli brojevi te vraća dvodimenzionalni niz (matricu) cijelih brojeva koji su složeni prema slici zadatka:
-        // Ciklična matrica
+        // Ruta prima dva parametra koji su cijeli brojevi te vraća dvodimenzionalni niz (matricu) cijelih brojeva koji su složeni prema slici zadatka
+        // Ciklična matrica (desno -> dolje -> lijevo -> gore) 
         [HttpGet]
         [Route("ZimskiZad13")]
-        public string Zad13(int broj1, int broj2)
+        public string Zad13(int redovi, int stupci)
         {
-            StringBuilder ciklicnaMatrica = new StringBuilder();
-            string[,] dvodimenzionalniNiz = new string[broj1, broj2];
-            int brojanje = broj1 * broj2;
-            int redPoc = broj1 - 1;
-            int redKraj = 0;
-            int kolPoc = broj2 - 1;
-            int kolKraj = 0;
+            int[,] ciklicnaMatrica = new int[redovi, stupci];
+            int brojac = 1;
+            int redPoc = 0, redKraj = redovi - 1;
+            int kolPoc = 0, kolKraj = stupci - 1;
 
-            while (redPoc >= redKraj && kolPoc >= kolKraj)
+            while (redPoc <= redKraj && kolPoc <= kolKraj)
             {
-                // Petlja za popunjavanje gornje strane matrice
-                for (int i = kolPoc; i >= kolKraj; i--)
+                // Popunjavanje gornjeg reda
+                for (int j = kolPoc; j <= kolKraj; j++)
                 {
-                    dvodimenzionalniNiz[redPoc, i] = brojanje--.ToString();
+                    ciklicnaMatrica[redPoc, j] = brojac++;
                 }
-                redPoc--;
+                redPoc++;
 
-                // Petlja za popunjavanje desne strane matrice
-                for (int i = redPoc; i >= redKraj; i--)
+                // Popunjavanje desne kolone
+                for (int i = redPoc; i <= redKraj; i++)
                 {
-                    dvodimenzionalniNiz[i, kolKraj] = brojanje--.ToString();
+                    ciklicnaMatrica[i, kolKraj] = brojac++;
                 }
-                kolKraj++;
+                kolKraj--;
 
-                // Pregledava ima li donja strana za popuniti
-                if (redPoc >= redKraj)
+                // Popunjavanje donjeg reda
+                if (redPoc <= redKraj)
                 {
-                    // Petlja za popunjavanje donje strane matrice
-                    for (int i = kolKraj; i >= kolPoc; i--)
+                    for (int j = kolKraj; j >= kolPoc; j--)
                     {
-                        dvodimenzionalniNiz[redKraj, i] = brojanje--.ToString();
+                        ciklicnaMatrica[redKraj, j] = brojac++;
                     }
-                    redKraj++;
+                    redKraj--;
                 }
 
-                // Pregledava ima li lijeva strana za popuniti
-                if (kolPoc >= kolKraj)
+                // Popunjavanje lijeve kolone
+                if (kolPoc <= kolKraj)
                 {
-                    // Petlja za popunjavanje lijeve strane matrice
                     for (int i = redKraj; i >= redPoc; i--)
                     {
-                        dvodimenzionalniNiz[i, kolPoc] = brojanje--.ToString();
+                        ciklicnaMatrica[i, kolPoc] = brojac++;
                     }
-                    kolPoc--;
+                    kolPoc++;
                 }
             }
 
-            for (int i = 0; i < broj1; i++)
+            StringBuilder sb = new StringBuilder();
+
+            // Ispis matrice
+            for (int i = 0; i < redovi; i++)
             {
-                for (int j = 0; j < broj2; j++)
+                for (int j = 0; j < stupci; j++)
                 {
-                    ciklicnaMatrica.Append(dvodimenzionalniNiz[i, j] + "\t");
+                    sb.Append(ciklicnaMatrica[i, j] + "\t");
                 }
-
-                ciklicnaMatrica.AppendLine();
+                sb.AppendLine();
             }
 
-            return ciklicnaMatrica.ToString();
+            return sb.ToString();
         }
 
 
