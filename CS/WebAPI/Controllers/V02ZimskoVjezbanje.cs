@@ -138,9 +138,6 @@ namespace WebAPI.Controllers
 
         public string Zad06(int broj1, int broj2)
         {
-            int manji = broj1 < broj2 ? broj1 : broj2;
-            int veci = broj1 > broj2 ? broj1 : broj2;
-
             if (broj1 % 2 != 0)
             {
                 broj1++;
@@ -398,6 +395,71 @@ namespace WebAPI.Controllers
             }
 
             return sb.ToString();
+        }
+
+
+
+        // Ciklična matrica (lijevo -> gore -> desno -> dolje)
+        [HttpGet]
+        [Route("ZimskiZad13v2")]
+        public string Zad13v2(int redovi, int stupci)
+        {
+            int[,] ciklicnaMatrica = new int[redovi, stupci];
+            int brojac = 1;
+            int redPoc = 0, redKraj = redovi - 1;
+            int kolPoc = 0, kolKraj = stupci - 1;
+
+            while (redPoc <= redKraj && kolPoc <= kolKraj)
+            {
+                // Popunjavanje donjeg reda
+                for (int j = kolKraj; j >= kolPoc; j--)
+                {
+                    ciklicnaMatrica[redKraj, j] = brojac++;
+                }
+                redKraj--;
+
+                // Popunjavanje lijevog stupca
+                for (int i = redKraj; i >= redPoc; i--)
+                {
+                    ciklicnaMatrica[i, kolPoc] = brojac++;
+                }
+                kolPoc++;
+
+                // Popunjavanje gornjeg reda
+                if (redPoc <= redKraj)
+                {
+                    for (int j = kolPoc; j <= kolKraj; j++)
+                    {
+                        ciklicnaMatrica[redPoc, j] = brojac++;
+                    }
+                    redPoc++;
+                }
+
+                // Popunjavanje desnog stupca
+                if (kolPoc <= kolKraj)
+                {
+                    for (int i = redPoc; i <= redKraj; i++)
+                    {
+                        ciklicnaMatrica[i, kolKraj] = brojac++;
+                    }
+                    kolKraj--;
+                }
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            // Ispis matrice
+            for (int i = 0; i < redovi; i++)
+            {
+                for (int j = 0; j < stupci; j++)
+                {
+                    sb.Append(ciklicnaMatrica[i, j] + "\t");
+                }
+                sb.AppendLine();
+            }
+
+            return sb.ToString();
+
         }
 
 
