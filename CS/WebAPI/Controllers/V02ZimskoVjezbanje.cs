@@ -447,7 +447,7 @@ namespace WebAPI.Controllers
             }
 
             StringBuilder sb = new StringBuilder();
-
+             
             // Ispis matrice
             for (int i = 0; i < redovi; i++)
             {
