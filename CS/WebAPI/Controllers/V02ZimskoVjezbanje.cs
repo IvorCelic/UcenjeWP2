@@ -317,16 +317,19 @@ namespace WebAPI.Controllers
         // Ruta prima cijeli broj i vraća logičku istinu ako je primljeni broj prosti (prim - prime) broj, odnosno logičku laž ako nije
         [HttpGet]
         [Route("Zimskizad12")]
-        public bool Zad12(int broj)
+        public bool Zad12(int a)
         {
-            if (broj < 2)
+            if (a < 2)
             {
                 return false;
             }
 
-            if (broj % 2 == 0)
+            for (int i = 2; i <= Math.Sqrt(a); i++)
             {
-                return false;
+                if (a % i == 0)
+                {
+                    return false;
+                }
             }
 
             return true;
