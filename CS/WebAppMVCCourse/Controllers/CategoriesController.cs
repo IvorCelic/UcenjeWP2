@@ -14,6 +14,8 @@ namespace WebAppMVCCourse.Controllers
 
         public IActionResult Edit(int? ID)
         {
+            ViewBag.Action = "edit";
+
             var category = CategoriesRepository.GetCategoryByID(ID.HasValue ? ID.Value : 0);
 
             return View(category);
@@ -34,6 +36,8 @@ namespace WebAppMVCCourse.Controllers
 
         public IActionResult Add()
         {
+            ViewBag.Action = "add";
+
             return View();
         }
 
