@@ -32,5 +32,30 @@ namespace WebAppMVCCourse.Controllers
             return View(category);
         }
 
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                CategoriesRepository.AddCategory(category);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(category);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int categoryID)
+        {
+            CategoriesRepository.DeleteCategory(categoryID);
+            
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
