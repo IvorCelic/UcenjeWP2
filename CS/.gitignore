@@ -3,6 +3,7 @@ UcenjeCS/bin
 UcenjeCS/obj
 WebAPI/bin
 WebAPI/obj
+WebAPI/Controllers/TEST.cs
 WebAPIDemo/bin
 WebAPIDemo/obj
 WebAppMVCCourse/bin
