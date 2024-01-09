@@ -1,0 +1,35 @@
+﻿@model List<Recipe>
+
+@section Title {
+    <h3>Recipes</h3>
+}
+
+@if (Model != null && Model.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recipe in Model)
+            {
+                <tr>
+                    <td>@recipe.Title</td>
+                    <td>@recipe.Description</td>
+                    <td>@(recipe.Category.Name)</td>
+                    <td>
+                        <a class="btn btn-link" asp-controller="recipes" asp-action="edit" asp-route-ID="@recipe.RecipeID">Edit</a>
+                        <a class="btn btn-link" asp-controller="recipes" asp-action="delete" asp-route-categoryID="@recipe.RecipeID" onclick="return confirmDelete()">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <a class="btn btn-primary" asp-controller="categories" asp-action="Add">Add new recipe</a>
+}

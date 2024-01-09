@@ -4,9 +4,9 @@
     {
         private static List<Category> _categories = new List<Category>()
         {
-            new Category {CategoryID = 1, Name = "Piće", Description = "Piće"},
-            new Category {CategoryID = 2, Name = "Slastice", Description = "Slastice"},
-            new Category {CategoryID = 3, Name = "Meso", Description = "Meso"}
+            new Category { CategoryID = 1, Name = "Slastice", Description = "Kolači i torte" },
+            new Category { CategoryID = 2, Name = "Slana jela", Description = "Slani recepti" },
+            new Category { CategoryID = 3, Name = "Piće", Description = "Sve što spada pod pitko" }
         };
 
         public static void AddCategory(Category category)
