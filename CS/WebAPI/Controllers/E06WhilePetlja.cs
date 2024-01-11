@@ -31,7 +31,6 @@ namespace WebAPI.Controllers
         // Ruta vraća zbroj svih brojeva od 1 do brojevi koristeći while petlju
         [HttpGet]
         [Route("zad2")]
-
         public int Zad2(int brojevi)
         {
             int suma = 0;

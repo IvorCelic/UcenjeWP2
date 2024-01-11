@@ -16,4 +16,8 @@
 
 //E07DoWhilePetlja.Izvedi();
 
-E08ForEachPetlja.Izvedi();
+// E08ForEachPetlja.Izvedi();
+
+// E09Metode.Izvedi();
+
+Console.WriteLine(V02Metode.ZbrojCijelogDijela(3.5f, 5.6f));
