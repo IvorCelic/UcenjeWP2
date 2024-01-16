@@ -20,4 +20,10 @@
 
 // E09Metode.Izvedi();
 
-Console.WriteLine(V02Metode.ZbrojCijelogDijela(3.5f, 5.6f));
+// Console.WriteLine(V02Metode.ZbrojCijelogDijela(3.5f, 5.6f));
+
+// E10ObradaIznimki.Izvedi();
+
+// E11Rekurzija.Izvedi();
+
+V02.Izvedi();
