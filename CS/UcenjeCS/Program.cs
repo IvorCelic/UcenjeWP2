@@ -26,4 +26,6 @@
 
 // E11Rekurzija.Izvedi();
 
-V03.Izvedi();
+// V03.Izvedi();
+
+UcenjeCS.E12KlasaObjekt.Program.Izvedi();
