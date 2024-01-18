@@ -17,36 +17,51 @@ namespace UcenjeCS
             // 3. najveći broj
             // 4. prosjek svih unesenih brojeva
 
-            UcitajBroj("Unesite broj: ");
+            UcitajBrojeve();
 
 
         }
 
-        private static string UcitajBroj(string v)
+        private static void UcitajBrojeve()
         {
             int Zbroj = 0;
-            int Min = int.MinValue;
-            int Max = int.MaxValue;
+            int Min = int.MaxValue;
+            int Max = int.MinValue;
             int Brojac = 0;
-            double Prosjek = (double)Zbroj / Brojac;
 
             for ( ; ; )
             {
-                Console.Write(v);
+                Console.Write("Unesite broj: ");
 
                 try
                 {
+
                     int Broj = int.Parse(Console.ReadLine());
-                    Zbroj += Broj;
+
+                    if (Broj < Min)
+                    {
+                        Min = Broj;
+                    }
+                    if (Broj > Max)
+                    {
+                        Max = Broj;
+                    }
+
                     Brojac++;
+                    Zbroj += Broj;
+                    double Prosjek = (double)Zbroj / Brojac;
 
                     if (Broj == -1)
                     {
+
                         Console.WriteLine("Zbroj unesenih brojeva: " + Zbroj);
                         Console.WriteLine("Najmanji broj: " + Min);
                         Console.WriteLine("Najveći broj: " + Max);
                         Console.WriteLine("Prosjek svih unesenih brojeva: " + Prosjek);
+
+                        break;
                     }
+
 
 
                 }
@@ -54,9 +69,9 @@ namespace UcenjeCS
                 {
                     Console.WriteLine("Niste unjeli dobar broj.");
                 }
+
             }
 
         }
-
     }
 }
