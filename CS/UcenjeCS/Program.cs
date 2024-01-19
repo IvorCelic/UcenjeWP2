@@ -28,4 +28,6 @@
 
 // V03.Izvedi();
 
-UcenjeCS.E12KlasaObjekt.Program.Izvedi();
+// UcenjeCS.E12KlasaObjekt.Program.Izvedi();
+
+UcenjeCS.V04LjubavniKalkulator.Program.Izvedi();

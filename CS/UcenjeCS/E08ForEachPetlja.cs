@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace UcenjeCS
+﻿namespace UcenjeCS
 {
     internal class E08ForEachPetlja
     {
