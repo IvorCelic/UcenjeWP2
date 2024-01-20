@@ -1,5 +1,8 @@
 ﻿
 
+using System.Diagnostics.CodeAnalysis;
+using System.Xml;
+
 namespace UcenjeCS.V04LjubavniKalkulator
 {
 
@@ -42,18 +45,20 @@ namespace UcenjeCS.V04LjubavniKalkulator
                     }
                     else
                     {
-                        zbrojevi[i] = brojevi[i] + brojevi[brojevi.Length - 1 - i];
+                        int sum = zbrojevi[i] = brojevi[i] + brojevi[brojevi.Length - 1 - i];
                     }
 
                 }
 
                 Console.WriteLine(string.Join(",", zbrojevi));
+
+                brojevi = zbrojevi;
+
             }
-
-
 
             return 56;
         }
+
         private int[] SlovaNiz(string imena)
         {
             int Ukupno;
