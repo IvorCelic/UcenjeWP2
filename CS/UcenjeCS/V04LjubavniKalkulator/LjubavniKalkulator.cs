@@ -33,8 +33,10 @@ namespace UcenjeCS.V04LjubavniKalkulator
 
         private int Izracunaj(int[] brojevi)
         {
+
             while (brojevi.Length >= 3)
             {
+                int[] dvoznamenkastiBroj = new int[2];
                 int[] zbrojevi = new int[(brojevi.Length + 1) / 2];
 
                 for (int i = 0; i < (brojevi.Length + 1) / 2; i++)
@@ -45,19 +47,40 @@ namespace UcenjeCS.V04LjubavniKalkulator
                     }
                     else
                     {
-                        int sum = zbrojevi[i] = brojevi[i] + brojevi[brojevi.Length - 1 - i];
-                    }
+                        int sum = brojevi[i] + brojevi[brojevi.Length - 1 - i];
 
+                        if (sum >= 10)
+                        {
+                            dvoznamenkastiBroj[0] = sum / 10;
+                            dvoznamenkastiBroj[1] = sum % 10;
+
+                            for (int j = 0; j < dvoznamenkastiBroj.Length; j++)
+                            {
+                                if (j == (dvoznamenkastiBroj.Length - 1) / 2 && dvoznamenkastiBroj.Length % 2 != 0)
+                                {
+                                    zbrojevi[i] = dvoznamenkastiBroj[j];
+                                }
+                                else
+                                {
+                                    zbrojevi[i] = dvoznamenkastiBroj[j] + dvoznamenkastiBroj[dvoznamenkastiBroj.Length - 1 - j];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            zbrojevi[i] = sum;
+                        }
+                    }
                 }
 
                 Console.WriteLine(string.Join(",", zbrojevi));
 
                 brojevi = zbrojevi;
-
             }
 
-            return 56;
+            return 0;
         }
+
 
         private int[] SlovaNiz(string imena)
         {
