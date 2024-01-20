@@ -33,44 +33,32 @@ namespace UcenjeCS.V04LjubavniKalkulator
 
         private int Izracunaj(int[] brojevi)
         {
+            int[] zbrojevi;
 
             while (brojevi.Length >= 3)
             {
-                int[] dvoznamenkastiBroj = new int[2];
-                int[] zbrojevi = new int[(brojevi.Length + 1) / 2];
+                zbrojevi = new int[brojevi.Length / 2 + brojevi.Length % 2];
 
                 for (int i = 0; i < (brojevi.Length + 1) / 2; i++)
                 {
+                    int sum = brojevi[i] + brojevi[brojevi.Length - 1 - i];
+
                     if (i == (brojevi.Length - 1) / 2 && brojevi.Length % 2 != 0)
                     {
                         zbrojevi[i] = brojevi[i];
                     }
                     else
                     {
-                        int sum = brojevi[i] + brojevi[brojevi.Length - 1 - i];
-
                         if (sum >= 10)
                         {
-                            dvoznamenkastiBroj[0] = sum / 10;
-                            dvoznamenkastiBroj[1] = sum % 10;
-
-                            for (int j = 0; j < dvoznamenkastiBroj.Length; j++)
-                            {
-                                if (j == (dvoznamenkastiBroj.Length - 1) / 2 && dvoznamenkastiBroj.Length % 2 != 0)
-                                {
-                                    zbrojevi[i] = dvoznamenkastiBroj[j];
-                                }
-                                else
-                                {
-                                    zbrojevi[i] = dvoznamenkastiBroj[j] + dvoznamenkastiBroj[dvoznamenkastiBroj.Length - 1 - j];
-                                }
-                            }
+                            zbrojevi[i] = sum / 10;
                         }
                         else
                         {
                             zbrojevi[i] = sum;
                         }
                     }
+
                 }
 
                 Console.WriteLine(string.Join(",", zbrojevi));
@@ -78,8 +66,13 @@ namespace UcenjeCS.V04LjubavniKalkulator
                 brojevi = zbrojevi;
             }
 
-            return 0;
+            return 5;
         }
+
+
+
+        // AKO JE BROJ VEĆI OD DESET DODAJ GA U NIZ RUČNO
+
 
 
         private int[] SlovaNiz(string imena)
