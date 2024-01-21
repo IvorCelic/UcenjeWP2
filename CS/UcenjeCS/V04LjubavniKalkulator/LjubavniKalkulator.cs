@@ -1,9 +1,4 @@
-﻿
-
-using System.Diagnostics.CodeAnalysis;
-using System.Xml;
-
-namespace UcenjeCS.V04LjubavniKalkulator
+﻿namespace UcenjeCS.V04LjubavniKalkulator
 {
 
     // Upiši dva imena, potom ispod svakog slova ispiši koliko se puta ono ponavlja.
@@ -43,20 +38,18 @@ namespace UcenjeCS.V04LjubavniKalkulator
                 {
                     int sum = brojevi[i] + brojevi[brojevi.Length - 1 - i];
 
-                    if (i == (brojevi.Length - 1) / 2 && brojevi.Length % 2 != 0)
+                    if (i >= (brojevi.Length - 1) / 2 && brojevi.Length % 2 != 0)
                     {
                         zbrojevi[i] = brojevi[i];
                     }
+                    else if (sum >= 10)
+                    {
+                        Splitter(zbrojevi, i, sum);
+                        i++;
+                    }
                     else
                     {
-                        if (sum >= 10)
-                        {
-                            zbrojevi[i] = sum / 10;
-                        }
-                        else
-                        {
-                            zbrojevi[i] = sum;
-                        }
+                        zbrojevi[i] = sum;
                     }
 
                 }
@@ -69,11 +62,14 @@ namespace UcenjeCS.V04LjubavniKalkulator
             return 5;
         }
 
+        private int[] Splitter(int[] niz, int index, int sum)
+        {
 
+            niz[index] = sum / 10;
+            niz[index + 1] = sum % 10;
 
-        // AKO JE BROJ VEĆI OD DESET DODAJ GA U NIZ RUČNO
-
-
+            return niz;
+        }
 
         private int[] SlovaNiz(string imena)
         {
