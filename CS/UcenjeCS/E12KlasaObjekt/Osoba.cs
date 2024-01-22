@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace UcenjeCS.E12KlasaObjekt
 {
     // Klasa je opisnik objekta
+    // Objekt je instanca (pojavnost) klase
     internal class Osoba
     {
         // Svojstva koja opisuju klasu

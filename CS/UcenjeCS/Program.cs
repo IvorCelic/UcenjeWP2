@@ -30,4 +30,8 @@
 
 // UcenjeCS.E12KlasaObjekt.Program.Izvedi();
 
+// LjubavniKalkulatorLeninger.Izvedi();
+
+// LjubavniKalkulatorPavkovic.Izvedi();
+
 UcenjeCS.V04LjubavniKalkulator.Program.Izvedi();

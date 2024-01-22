@@ -28,43 +28,36 @@
 
         private int Izracunaj(int[] brojevi)
         {
-            int rezultat;
-            int[] zbrojevi;
-
-            while (brojevi.Length >= 3)
+            if (brojevi.Length < 3)
             {
-                zbrojevi = new int[brojevi.Length / 2 + brojevi.Length % 2];
-
-                for (int i = 0; i < (brojevi.Length + 1) / 2; i++)
-                {
-                    int sum = brojevi[i] + brojevi[brojevi.Length - 1 - i];
-
-                    if (i >= (brojevi.Length - 1) / 2 && brojevi.Length % 2 != 0)
-                    {
-                        zbrojevi[i] = brojevi[i];
-                    }
-                    else if (sum >= 10)
-                    {
-                        Splitter(zbrojevi, i, sum);
-                        i++;
-                    }
-                    else
-                    {
-                        zbrojevi[i] = sum;
-                    }
-
-                }
-
-                Console.WriteLine(string.Join(",", zbrojevi));
-
-                brojevi = zbrojevi;
+                return KonvertNiz(brojevi);
             }
 
-            int[] intBrojevi = brojevi;
+            int[] zbrojevi = new int[brojevi.Length / 2 + brojevi.Length % 2]; ;
 
-            rezultat = KonvertNiz(intBrojevi);
+            for (int i = 0; i < (brojevi.Length + 1) / 2; i++)
+            {
+                int sum = brojevi[i] + brojevi[brojevi.Length - 1 - i];
 
-            return rezultat;
+                if (i >= (brojevi.Length - 1) / 2 && brojevi.Length % 2 != 0)
+                {
+                    zbrojevi[i] = brojevi[i];
+                }
+                else if (sum >= 10)
+                {
+                    Splitter(zbrojevi, i, sum);
+                    i++;
+                }
+                else
+                {
+                    zbrojevi[i] = sum;
+                }
+
+            }
+
+            Console.WriteLine(string.Join(",", zbrojevi));
+
+            return Izracunaj(zbrojevi);
         }
 
         private int KonvertNiz(int[] niz)
