@@ -32,8 +32,8 @@
             {
                 return KonvertNiz(brojevi);
             }
-
-            int[] zbrojevi = new int[brojevi.Length / 2 + brojevi.Length % 2]; ;
+            
+            List<int> Zbrojevi = new List<int>();
 
             for (int i = 0; i < (brojevi.Length + 1) / 2; i++)
             {
@@ -41,23 +41,28 @@
 
                 if (i >= (brojevi.Length - 1) / 2 && brojevi.Length % 2 != 0)
                 {
-                    zbrojevi[i] = brojevi[i];
-                }
-                else if (sum >= 10)
-                {
-                    Splitter(zbrojevi, i, sum);
-                    i++;
+                    Zbrojevi.Add(brojevi[i]);
                 }
                 else
                 {
-                    zbrojevi[i] = sum;
+                    if (sum >= 10)
+                    {
+                        Zbrojevi.Add(sum / 10);
+                        Zbrojevi.Add(sum % 10);
+                    }
+                    else
+                    {
+                        Zbrojevi.Add(sum);
+                    }
                 }
 
             }
 
-            Console.WriteLine(string.Join(",", zbrojevi));
+            Console.WriteLine(string.Join(",", Zbrojevi));
 
-            return Izracunaj(zbrojevi);
+            brojevi = Zbrojevi.ToArray();
+
+            return Izracunaj(brojevi);
         }
 
         private int KonvertNiz(int[] niz)
@@ -67,14 +72,6 @@
             int rezultat = int.Parse(stringNiz);
 
             return rezultat;
-        }
-
-        private int[] Splitter(int[] niz, int index, int sum)
-        {
-            niz[index] = sum / 10;
-            niz[index + 1] = sum % 10;
-
-            return niz;
         }
 
         private int[] SlovaNiz(string imena)
