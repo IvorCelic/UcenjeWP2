@@ -28,6 +28,7 @@
 
         private int Izracunaj(int[] brojevi)
         {
+            int rezultat;
             int[] zbrojevi;
 
             while (brojevi.Length >= 3)
@@ -59,12 +60,24 @@
                 brojevi = zbrojevi;
             }
 
-            return 5;
+            int[] intBrojevi = brojevi;
+
+            rezultat = KonvertNiz(intBrojevi);
+
+            return rezultat;
+        }
+
+        private int KonvertNiz(int[] niz)
+        {
+            string stringNiz = string.Join("", niz);
+
+            int rezultat = int.Parse(stringNiz);
+
+            return rezultat;
         }
 
         private int[] Splitter(int[] niz, int index, int sum)
         {
-
             niz[index] = sum / 10;
             niz[index + 1] = sum % 10;
 
