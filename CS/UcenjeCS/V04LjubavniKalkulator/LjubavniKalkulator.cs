@@ -32,8 +32,9 @@
             {
                 return KonvertNiz(brojevi);
             }
-            
-            List<int> Zbrojevi = new List<int>();
+
+            int[] zbrojevi = new int[brojevi.Length / 2 + brojevi.Length % 2];
+            int[] noviZbrojevi = new int[zbrojevi.Length + 1];
 
             for (int i = 0; i < (brojevi.Length + 1) / 2; i++)
             {
@@ -41,28 +42,30 @@
 
                 if (i >= (brojevi.Length - 1) / 2 && brojevi.Length % 2 != 0)
                 {
-                    Zbrojevi.Add(brojevi[i]);
+                    zbrojevi[i] = brojevi[i];
+                }
+                else if (sum >= 10)
+                {
+                    // Array.Copy(zbrojevi, noviZbrojevi, zbrojevi.Length);
+                    Array.Copy(zbrojevi, 1, noviZbrojevi, 2, zbrojevi.Length - 1);
+
+                    noviZbrojevi[i] = sum / 10;
+                    noviZbrojevi[i + 1] = sum % 10;
+
+                    zbrojevi = noviZbrojevi;
+
+
                 }
                 else
                 {
-                    if (sum >= 10)
-                    {
-                        Zbrojevi.Add(sum / 10);
-                        Zbrojevi.Add(sum % 10);
-                    }
-                    else
-                    {
-                        Zbrojevi.Add(sum);
-                    }
+                    zbrojevi[i] = sum;
                 }
 
             }
 
-            Console.WriteLine(string.Join(",", Zbrojevi));
+            Console.WriteLine(string.Join(",", zbrojevi));
 
-            brojevi = Zbrojevi.ToArray();
-
-            return Izracunaj(brojevi);
+            return Izracunaj(zbrojevi);
         }
 
         private int KonvertNiz(int[] niz)
