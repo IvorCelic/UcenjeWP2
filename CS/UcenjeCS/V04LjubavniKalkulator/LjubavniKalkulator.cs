@@ -32,7 +32,7 @@ namespace UcenjeCS.V04LjubavniKalkulator
         {
             if (brojevi.Length < 3) // Ako niz ima dva elementa onda prekini sa rekurzijom i vrati KonvertNiz
             {
-                return KonvertNiz(brojevi);
+                return FinalNiz(brojevi);
             }
 
             int[] zbrojevi = new int[brojevi.Length / 2 + brojevi.Length % 2]; // Zbraja prvi i zadnji element niza
@@ -55,12 +55,41 @@ namespace UcenjeCS.V04LjubavniKalkulator
             Console.WriteLine(string.Join(",", zbrojevi));
 
             // Svaki puta kada se dogodi rekurzija, prvo se odradi ProvjeraDvoznamenkastogBroja
-            return Izracunaj(ProvjeraDvoznamenkastogBroja(zbrojevi)); // Rekurzivni način metode izračunaj
+            return Izracunaj(KonvertNiz(zbrojevi)); // Rekurzivni način metode izračunaj
+        }
+
+        private int[] KonvertNiz(int[] brojevi) // Radi isto kao i ProvjeraDvoznamenkastogBroja samo bez lambde
+        {
+            int maksimalnaDuzina = brojevi.Length * 2;
+            int[] rezultat = new int[maksimalnaDuzina];
+            int Index = 0;
+
+            foreach (int num in brojevi) // Za svaki element u brojevi
+            {
+                if (num < 10) // Ako je rezultat manji od 10 onda ispiši element u rezultat
+                {
+                    rezultat[Index++] = num;
+                }
+                else // Razdvoji element na deseticu i jedinicu pa upiši u rezultat pazeći na Index
+                {
+                    int Desetica = num / 10;
+                    int Jedinica = num % 10;
+
+                    rezultat[Index++] = Desetica;
+                    rezultat[Index++] = Jedinica;
+                }
+
+            }
+
+            Array.Resize(ref rezultat, Index); // Reže niz na točnu veličinu, odnosno koliki je Index tolika je veličina niza
+
+            return rezultat;
         }
 
         private int[] ProvjeraDvoznamenkastogBroja(int[] brojevi) // Pretvara niz u string bez zareza i vraća ga nazad u int
         {
             // Nez kako drukčije LOL
+            // Koristio lambdu a pretpostavljam, ne smijemo.
 
             string[] stringNiz = Array.ConvertAll(brojevi, x => x.ToString());
 
@@ -71,7 +100,7 @@ namespace UcenjeCS.V04LjubavniKalkulator
             return intNiz;
         }
 
-        private int KonvertNiz(int[] niz) // Briše zareze iz niza
+        private int FinalNiz(int[] niz) // Briše zareze iz niza
         {
             string stringNiz = string.Join("", niz);
 
