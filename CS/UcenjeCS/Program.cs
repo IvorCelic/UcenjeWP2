@@ -34,4 +34,6 @@
 
 // LjubavniKalkulatorPavkovic.Izvedi();
 
-UcenjeCS.V04LjubavniKalkulator.Program.Izvedi();
+// UcenjeCS.V04LjubavniKalkulator.Program.Izvedi();
+
+UcenjeCS.E13Nasljedivanje.Program.Izvedi();
