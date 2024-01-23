@@ -1,4 +1,6 @@
-﻿namespace UcenjeCS.V04LjubavniKalkulator
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace UcenjeCS.V04LjubavniKalkulator
 {
 
     // Upiši dva imena, potom ispod svakog slova ispiši koliko se puta ono ponavlja.
@@ -34,7 +36,6 @@
             }
 
             int[] zbrojevi = new int[brojevi.Length / 2 + brojevi.Length % 2];
-            int[] noviZbrojevi = new int[zbrojevi.Length + 1];
 
             for (int i = 0; i < (brojevi.Length + 1) / 2; i++)
             {
@@ -43,18 +44,6 @@
                 if (i >= (brojevi.Length - 1) / 2 && brojevi.Length % 2 != 0)
                 {
                     zbrojevi[i] = brojevi[i];
-                }
-                else if (sum >= 10)
-                {
-                    // Array.Copy(zbrojevi, noviZbrojevi, zbrojevi.Length);
-                    Array.Copy(zbrojevi, 1, noviZbrojevi, 2, zbrojevi.Length - 1);
-
-                    noviZbrojevi[i] = sum / 10;
-                    noviZbrojevi[i + 1] = sum % 10;
-
-                    zbrojevi = noviZbrojevi;
-
-
                 }
                 else
                 {
@@ -65,7 +54,21 @@
 
             Console.WriteLine(string.Join(",", zbrojevi));
 
-            return Izracunaj(zbrojevi);
+            return Izracunaj(ProvjeraDvoznamenkastogBroja(zbrojevi));
+        }
+
+        private int[] ProvjeraDvoznamenkastogBroja(int[] brojevi)
+        {
+            // pretvori niz brojevi u string niz i onda ga vrati nazad u int
+            // nez kako drukcije LOL
+
+            string[] stringNiz = Array.ConvertAll(brojevi, x => x.ToString());
+
+            string spojeniNiz = string.Join("", stringNiz);
+
+            int[] intNiz = spojeniNiz.Select(c => int.Parse(c.ToString())).ToArray();
+
+            return intNiz;
         }
 
         private int KonvertNiz(int[] niz)
