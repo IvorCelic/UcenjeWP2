@@ -3,8 +3,8 @@
 namespace UcenjeCS.V04LjubavniKalkulator
 {
 
-    // Upiši dva imena, potom ispod svakog slova ispiši koliko se puta ono ponavlja.
-    // Zbroji prvi broj ispod prvog imena i zadnji broj ispod drugog imena, tako ponovi sa svakim sljedećim brojem.
+    // Upiši dva imena, potom u novi niz ispiši koliko se puta svako slovo ponovilo
+    // Zbroji prvi i zadnji element, pa drugi i predzadnji, itd. Ako je zadnji element neparan prepiši ga.
     // Kada završiš s prvim retkom, prijeđi u drugi , pa u treći, itd.. Na kraju dobiti ćeš 100 ili manji postotak zaljubljenosti.
 
     internal class LjubavniKalkulator
@@ -30,37 +30,37 @@ namespace UcenjeCS.V04LjubavniKalkulator
 
         private int Izracunaj(int[] brojevi)
         {
-            if (brojevi.Length < 3)
+            if (brojevi.Length < 3) // Ako niz ima dva elementa onda prekini sa rekurzijom i vrati KonvertNiz
             {
                 return KonvertNiz(brojevi);
             }
 
-            int[] zbrojevi = new int[brojevi.Length / 2 + brojevi.Length % 2];
+            int[] zbrojevi = new int[brojevi.Length / 2 + brojevi.Length % 2]; // Zbraja prvi i zadnji element niza
 
             for (int i = 0; i < (brojevi.Length + 1) / 2; i++)
             {
                 int sum = brojevi[i] + brojevi[brojevi.Length - 1 - i];
 
-                if (i >= (brojevi.Length - 1) / 2 && brojevi.Length % 2 != 0)
+                if (i >= (brojevi.Length - 1) / 2 && brojevi.Length % 2 != 0) // Ako 'i' nema para
                 {
-                    zbrojevi[i] = brojevi[i];
+                    zbrojevi[i] = brojevi[i]; // Prepiši 'i'
                 }
                 else
                 {
-                    zbrojevi[i] = sum;
+                    zbrojevi[i] = sum; // Zbroji prvi i zadnji element
                 }
 
             }
 
             Console.WriteLine(string.Join(",", zbrojevi));
 
-            return Izracunaj(ProvjeraDvoznamenkastogBroja(zbrojevi));
+            // Svaki puta kada se dogodi rekurzija, prvo se odradi ProvjeraDvoznamenkastogBroja
+            return Izracunaj(ProvjeraDvoznamenkastogBroja(zbrojevi)); // Rekurzivni način metode izračunaj
         }
 
-        private int[] ProvjeraDvoznamenkastogBroja(int[] brojevi)
+        private int[] ProvjeraDvoznamenkastogBroja(int[] brojevi) // Pretvara niz u string bez zareza i vraća ga nazad u int
         {
-            // pretvori niz brojevi u string niz i onda ga vrati nazad u int
-            // nez kako drukcije LOL
+            // Nez kako drukčije LOL
 
             string[] stringNiz = Array.ConvertAll(brojevi, x => x.ToString());
 
@@ -71,7 +71,7 @@ namespace UcenjeCS.V04LjubavniKalkulator
             return intNiz;
         }
 
-        private int KonvertNiz(int[] niz)
+        private int KonvertNiz(int[] niz) // Briše zareze iz niza
         {
             string stringNiz = string.Join("", niz);
 
@@ -80,11 +80,11 @@ namespace UcenjeCS.V04LjubavniKalkulator
             return rezultat;
         }
 
-        private int[] SlovaNiz(string imena)
+        private int[] SlovaNiz(string imena) // Vraća niz koji se sastoji od broja ponavljanja svakog slova
         {
             int Ukupno;
             int Index = 0;
-            imena = imena.Replace(" ", "").ToLower();
+            imena = imena.Replace(" ", "").ToLower(); // Briše zareze iz imena
 
             int[] brojevi = new int[imena.Length];
 
@@ -102,7 +102,7 @@ namespace UcenjeCS.V04LjubavniKalkulator
             }
 
             Console.WriteLine(imena);
-            Console.WriteLine(string.Join(",", brojevi));
+            Console.WriteLine(string.Join(",", brojevi)); // Odvaja elemente sa zarezom
 
             return brojevi;
         }
