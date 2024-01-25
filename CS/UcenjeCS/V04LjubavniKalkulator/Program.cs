@@ -4,31 +4,50 @@
     {
         public static void Izvedi()
         {
-            LjubavniZov();
+            LoveCall();
         }
 
-        private static string Unos(string poruka)
+        private static string Input(string message)
         {
-            string Unos;
-
-            while (true)
+            while (true) // Infinite loop with condition inside to break the loop
             {
+                Console.Write(message);
+                string userInput = Console.ReadLine();
 
-                Console.Write(poruka);
-                Unos = Console.ReadLine();
+                string validationMessage = ValidateInput(userInput); // Calls ValidateInput
 
-                if (Unos.Trim().Length == 0)
+                if (string.IsNullOrEmpty(validationMessage))
                 {
-                    Console.WriteLine("Unos obavezan.");
-                    continue;
+                    return userInput;
                 }
 
-                return Unos;
+                Console.WriteLine(validationMessage); // If input is invalid, print the validation message and continuesthe loop
+
             }
         }
-        private static void LjubavniZov()
+
+        // Checks if 'input' is null or numeric characters and returns correct messages for each exception
+        private static string ValidateInput(string input)
         {
-            Console.WriteLine(new LjubavniKalkulator(Unos("Prvo ime: "), Unos("Drugo ime: ")).Rezultat());
+            if (string.IsNullOrEmpty(input))
+            {
+                return "Name cannot be null.";
+            }
+
+            foreach (char c in input)
+            {
+                if (!char.IsLetter(c))
+                {
+                    return "You cannot enter a number.";
+                }
+            }
+
+            return string.Empty; // If input is valid then it returns an empty string
+        }
+
+        private static void LoveCall()
+        {
+            Console.WriteLine(new LoveCalculator(Input("First name: "), Input("Second name: ")).Result());
         }
     }
 }

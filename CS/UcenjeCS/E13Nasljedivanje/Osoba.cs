@@ -33,7 +33,7 @@ namespace UcenjeCS.E13Nasljedivanje
         }
         public override string ToString()
         {
-            // return Ime + " " + Prezime; Ovo je užas
+            // return Ime + " " + Prezime; Ovo je užas jer alocira 3 puta memoriju
 
             return new StringBuilder(Ime).Append(' ').Append(Prezime).ToString(); // Ovako samo jednom alocira memoriju
         }
