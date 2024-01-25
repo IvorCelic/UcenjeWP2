@@ -36,6 +36,10 @@
 
 // UcenjeCS.V04LjubavniKalkulatorMiloloza.Program.Izvedi();
 
-UcenjeCS.V04LjubavniKalkulator.Program.Izvedi();
+// UcenjeCS.V04LjubavniKalkulator.Program.Izvedi();
 
 // UcenjeCS.E13Nasljedivanje.Program.Izvedi();
+
+// UcenjeCS.E14Polimorfizam.Program.Izvedi();
+
+new UcenjeCS.E15KonzolnaAplikacija.Program(); // Ovako pozivamo konstruktor 
