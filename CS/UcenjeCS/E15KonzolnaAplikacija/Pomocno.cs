@@ -7,8 +7,35 @@ using System.Threading.Tasks;
 namespace UcenjeCS.E15KonzolnaAplikacija
 {
     // Utility = pomocno na eng
+
     internal class Pomocno
     {
+        public static bool dev;
+
+        public static int UcitajBrojRaspon(string poruka, string greska, int poc, int kraj)
+        {
+            int b;
+            
+            while (true)
+            {
+                Console.Write(poruka);
+
+                try
+                {
+                    b = int.Parse(Console.ReadLine());
+                    if (b >= poc && b <= kraj)
+                    {
+                        return b;
+                    }
+
+                    Console.WriteLine(greska);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(greska);
+                }
+            }
+        }
         public static int UcitajInt(string poruka)
         {
             while (true)

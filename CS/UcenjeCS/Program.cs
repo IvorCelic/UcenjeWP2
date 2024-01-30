@@ -42,4 +42,4 @@
 
 // UcenjeCS.E14Polimorfizam.Program.Izvedi();
 
-new UcenjeCS.E15KonzolnaAplikacija.Program(); // Ovako pozivamo konstruktor 
+new UcenjeCS.E15KonzolnaAplikacija.Izbornik(); // Ovako pozivamo konstruktor 
