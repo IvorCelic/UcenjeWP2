@@ -23,7 +23,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
             Console.WriteLine("5. Povratak na glavni izbornik");
             Console.WriteLine("");
 
-            switch (Pomocno.UcitajInt("Unesi izbor: "))
+            switch (Pomocno.UcitajBrojRaspon("Unesi izbor: ", "Odaberi iz ponuđenog!", 1, 5))
             {
                 case 1:
                     PrikaziSveSmjerove();
@@ -45,6 +45,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                     Console.WriteLine("Povratak na glavni izbornik");
                     break;
             }
+
         }
 
         private void ObrisiSmjer()
@@ -61,7 +62,9 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 Smjerovi.RemoveAt(index - 1);
             }
 
+            Console.WriteLine("");
             Console.WriteLine("Trenutno ne postoji ni jedan smjer.");
+
         }
 
         private void UrediSmjer()
@@ -75,13 +78,20 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 PrikaziSveSmjerove();
 
                 Console.WriteLine("");
-                var s = Smjerovi[Pomocno.UcitajInt("Odaberi smjer za promjenu: ") - 1];
+                int index = Pomocno.UcitajBrojRaspon("Odaberi smjer za promjenu: ", "Odaberi iz ponuđenog!", 1, Smjerovi.Count);
+                var smjer = Smjerovi[index - 1];
 
-                s.Sifra = Pomocno.UcitajInt(s.Sifra + "Unesi promjenjenu šifru: ");
-                s.Naziv = Pomocno.UcitajString(s.Naziv + "Unesi promjenjeni naziv: ");
+                Console.WriteLine("Trenutna šifra: " + smjer.Sifra);
+                smjer.Sifra = Pomocno.ValidirajSifru("Unesi novu šifru: ", Smjerovi, s => s.Sifra, "Unos mora biti cijeli pozitivni broj!");
+                smjer.Naziv = Pomocno.UcitajString("Trenutni naziv: " + smjer.Naziv + " | Unesi novi naziv: ", "Unos obavezan!");
+                smjer.Trajanje = Pomocno.UcitajInt("Trenutno trajanje smjera: " + smjer.Trajanje + " | Unesi novi broj sati: ", "Unos mora biti cijeli pozitivni broj!");
+                smjer.Cijena = Pomocno.UcitajDecimalniBroj("Trenutna cijena: " + smjer.Cijena + " | Unesite novu cijenu smjera: ", "Unos mora biti pozitivan broj!");
+                smjer.Upisnina = Pomocno.UcitajDecimalniBroj("Trenutna upisnina: " + smjer.Upisnina + " | Unesite novu upisninu smjera: ", "Unos mora biti pozitivan broj!");
             }
 
+            Console.WriteLine("");
             Console.WriteLine("Trenutno ne postoji ni jedan smjer.");
+
         }
 
         private void PrikaziSveSmjerove()
@@ -90,25 +100,36 @@ namespace UcenjeCS.E15KonzolnaAplikacija
             Console.WriteLine("Smjerovi");
             Console.WriteLine("--------");
 
-            var i = 0;;
-            Smjerovi.ForEach(s =>
+            var redniBroj = 0;;
+            Smjerovi.ForEach(smjer =>
             {
-                Console.WriteLine(++i + ". " + s);
+                Console.WriteLine(++redniBroj + ". " + smjer);
             });
+
+            Console.WriteLine("");
+
         }
 
         private void DodajNoviSmjer()
         {
+            Console.WriteLine("");
             Console.WriteLine("----------------");
             Console.WriteLine("Dodavanje smjera");
             Console.WriteLine("----------------");
 
-            Smjerovi.Add(new Smjer
-            {
-                Sifra = Pomocno.UcitajInt("Unesi šifru smjera: "),
-                Naziv = Pomocno.UcitajString("Unesi naziv smjera: "),
-                // Učitati ostale vrijednosti
-            });
+            var smjer = new Smjer();
+
+            smjer.Sifra = Pomocno.ValidirajSifru("Unesi šifru smjera: ", Smjerovi, s => s.Sifra, "Unos mora biti cijeli pozitivni broj!");
+            smjer.Naziv = Pomocno.UcitajString("Unesi naziv smjera: ", "Unos obavezan!");
+            smjer.Trajanje = Pomocno.UcitajInt("Unesite broj sati smjera: ", "Unos mora biti cijeli pozitivni broj!");
+            smjer.Cijena = Pomocno.UcitajDecimalniBroj("Unesite cijenu smjera: ", "Unos mora biti pozitivan broj!");
+            smjer.Upisnina = Pomocno.UcitajDecimalniBroj("Unesite upisninu smjera: ", "Unos mora biti pozitivan broj!");
+            smjer.Verificiran = Pomocno.UcitajBool("Ako je smjer verificiran unesite \"da\", ako nije, unesite bilo šta: ");
+
+            Console.WriteLine("");
+            Console.WriteLine("Smjer uspješno dodan!");
+
+            Smjerovi.Add(smjer);
 
         }
     }

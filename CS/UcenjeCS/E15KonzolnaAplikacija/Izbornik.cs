@@ -36,6 +36,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 case 1:
                     Console.WriteLine("Odabrali ste rad sa smjerovima");
                     ObradaSmjer.PrikaziIzbornik();
+                    PrikaziIzbornik();
                     break;
                 case 2:
                     Console.WriteLine("Odabrali ste rad s predavačima");

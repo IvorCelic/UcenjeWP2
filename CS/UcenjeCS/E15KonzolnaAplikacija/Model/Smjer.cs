@@ -10,8 +10,8 @@ namespace UcenjeCS.E15KonzolnaAplikacija.Model
     {
         public string Naziv { get; set; }
         public int Trajanje { get; set; }
-        public float Cijena { get; set; }
-        public float Upisnina { get; set; }
+        public decimal Cijena { get; set; }
+        public decimal Upisnina { get; set; }
         public bool Verificiran { get; set; }
 
         public override string ToString()

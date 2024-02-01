@@ -14,62 +14,134 @@ namespace UcenjeCS.E15KonzolnaAplikacija
 
         public static int UcitajBrojRaspon(string poruka, string greska, int poc, int kraj)
         {
-            int b;
-            
+            int unos;
+
             while (true)
             {
                 Console.Write(poruka);
 
                 try
                 {
-                    b = int.Parse(Console.ReadLine());
-                    if (b >= poc && b <= kraj)
-                    {
-                        return b;
-                    }
+                    unos = int.Parse(Console.ReadLine());
 
+                    if (unos >= poc && unos <= kraj)
+                    {
+                        return unos;
+                    }
                     Console.WriteLine(greska);
+
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(greska);
                 }
             }
+
         }
-        public static int UcitajInt(string poruka)
+
+        public static int UcitajInt(string poruka, string greska)
         {
+            int unos;
+
             while (true)
             {
                 Console.Write(poruka);
+
                 try
                 {
-                    return int.Parse(Console.ReadLine());
+                    unos = int.Parse(Console.ReadLine());
+
+                    if (unos > 0)
+                    {
+                        return unos;
+                    }
+                    Console.WriteLine(greska);
+
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Console.WriteLine("Neispravan unos");
+                    Console.WriteLine(greska);
                 }
-                
             }
+
         }
 
-        public static string UcitajString(string poruka)
+        public static decimal UcitajDecimalniBroj(string poruka, string greska)
         {
-            string s;
+            decimal unos;
 
             while (true)
             {
                 Console.Write(poruka);
-                s = Console.ReadLine();
 
-                if (s.Trim().Length == 0)
+                try
                 {
-                    Console.WriteLine("Obavezan unos");
-                    continue;
-                }
+                    unos = decimal.Parse(Console.ReadLine());
+                    if (unos > 0)
+                    {
+                        return unos;
+                    }
+                    Console.WriteLine(greska);
 
-                return s;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(greska);
+                }
             }
+
         }
+
+        public static string UcitajString(string poruka, string greska)
+        {
+            string unos;
+
+            while (true)
+            {
+                Console.Write(poruka);
+                unos = Console.ReadLine();
+
+                if (unos.Trim().Length > 0)
+                {
+                    return unos;
+                }
+                Console.WriteLine(greska);
+
+            }
+
+        }
+
+        public static bool UcitajBool(string poruka)
+        {
+            Console.Write(poruka);
+
+            if (Console.ReadLine().Trim().ToLower().Equals("da"))
+            {
+                return true;
+            }
+
+            return false;
+
+        }
+
+        public static int ValidirajSifru<T>(string poruka, List<T> entiteti, Func<T, int> dohvatiSifru, string greska)
+        {
+            int unos;
+
+            while (true)
+            {
+                unos = UcitajInt(poruka, greska);
+
+                if (!entiteti.Any(entitet => dohvatiSifru(entitet) == unos))
+                {
+                    return unos;
+                }
+                Console.WriteLine("Šifra već postoji. Molimo unesite drugu.");
+
+            }
+
+        }
+
+
     }
 }
