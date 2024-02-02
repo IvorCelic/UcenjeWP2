@@ -63,15 +63,18 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 PrikaziSveSmjerove();
 
                 Console.WriteLine("");
-                int index = Pomocno.UcitajBrojRaspon("Unesi izbor: ", "Odaberi iz ponuđenog!", 1, Smjerovi.Count());
+                int index = Pomocno.UcitajBrojRaspon("Udaberi smjer za brisanje: ", "Odaberi iz ponuđenog!", 1, Smjerovi.Count());
                 Smjerovi.RemoveAt(index - 1);
 
                 Console.WriteLine("");
                 Console.WriteLine("Smjer uspješno obrisan!");
             }
+            else
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Trenutno ne postoji ni jedan smjer.");
+            }
 
-            Console.WriteLine("");
-            Console.WriteLine("Trenutno ne postoji ni jedan smjer.");
         }
 
         private void UrediSmjer()
@@ -103,7 +106,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
             Console.WriteLine("Trenutno ne postoji ni jedan smjer.");
         }
 
-        private void PrikaziSveSmjerove()
+        public void PrikaziSveSmjerove()
         {
             Console.WriteLine("");
             Console.WriteLine("--------");
@@ -119,7 +122,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
             Console.WriteLine("");
         }
 
-        private void DodajNoviSmjer()
+        public void DodajNoviSmjer()
         {
             Console.WriteLine("");
             Console.WriteLine("----------------");

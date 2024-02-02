@@ -64,15 +64,17 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 PrikaziSvePredavace();
 
                 Console.WriteLine("");
-                int index = Pomocno.UcitajBrojRaspon("Odaberi predavača za brisanje", "Odaberi iz ponuđenog!", 1, Predavaci.Count);
+                int index = Pomocno.UcitajBrojRaspon("Odaberi predavača za brisanje: ", "Odaberi iz ponuđenog!", 1, Predavaci.Count);
                 Predavaci.RemoveAt(index - 1);
 
                 Console.WriteLine("");
                 Console.WriteLine("Predavač uspješno obrisan!");
             }
-
-            Console.WriteLine("");
-            Console.WriteLine("Trenutno ne postoji ni jedan predavač.");
+            else
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Trenutno ne postoji ni jedan predavač.");
+            }
         }
 
         private void UrediPredavaca()
@@ -100,12 +102,15 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 Console.WriteLine("");
                 Console.WriteLine("Predavač uspješno promjenjen!");
             }
+            else
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Trenutno ne postoji ni jedan predavač!");
+            }
 
-            Console.WriteLine("");
-            Console.WriteLine("Trenutno ne postoji ni jedan predavač!");
         }
 
-        private void DodajNovogPredavaca()
+        public void DodajNovogPredavaca()
         {
             Console.WriteLine("");
             Console.WriteLine("-------------------");
@@ -127,7 +132,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
             Predavaci.Add(predavac);
         }
 
-        private void PrikaziSvePredavace()
+        public void PrikaziSvePredavace()
         {
             Console.WriteLine("---------");
             Console.WriteLine("Predavači");

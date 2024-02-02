@@ -1,16 +1,17 @@
-﻿using UcenjeCS.E15KonzolnaAplikacija;
-
-namespace UcenjeCS.E15KonzolnaAplikacija
+﻿namespace UcenjeCS.E15KonzolnaAplikacija
 {
     internal class Izbornik
     {
         public ObradaSmjer ObradaSmjer { get; }
         public ObradaPredavac ObradaPredavac { get; set; }
+        private ObradaGrupa ObradaGrupa { get; set; }
+
         public Izbornik()
         {
             Pomocno.dev = true;
             ObradaSmjer = new ObradaSmjer();
             ObradaPredavac = new ObradaPredavac();
+            ObradaGrupa = new ObradaGrupa(this);
 
             PozdravnaPoruka();
             PrikaziIzbornik();
@@ -44,12 +45,15 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 case 2:
                     Console.WriteLine("Odabrali ste rad s predavačima");
                     ObradaPredavac.PrikaziIzbornik();
+                    PrikaziIzbornik();
                     break;
                 case 3:
                     Console.WriteLine("Odabrali ste rad s polaznicima");
                     break;
                 case 4:
                     Console.WriteLine("Odabrali ste rad s grupama");
+                    ObradaGrupa.PrikaziIzbornik();
+                    PrikaziIzbornik();
                     break;
                 case 5:
                     Console.WriteLine("Izlazite iz programa.");
