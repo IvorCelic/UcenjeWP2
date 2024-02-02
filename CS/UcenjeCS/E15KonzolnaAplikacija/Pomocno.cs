@@ -124,7 +124,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
 
         }
 
-        public static int ValidirajSifru<T>(string poruka, List<T> entiteti, Func<T, int> dohvatiSifru, string greska)
+        public static int ValidirajSifru<T>(string poruka, List<T> entiteti, Func<T, int> dohvatiSifru, int trenutnaSifra, string greska)
         {
             int unos;
 
@@ -132,10 +132,11 @@ namespace UcenjeCS.E15KonzolnaAplikacija
             {
                 unos = UcitajInt(poruka, greska);
 
-                if (!entiteti.Any(entitet => dohvatiSifru(entitet) == unos))
+                if ((trenutnaSifra == unos) || (!entiteti.Any(entitet => dohvatiSifru(entitet) == unos)))
                 {
                     return unos;
                 }
+
                 Console.WriteLine("Šifra već postoji. Molimo unesite drugu.");
 
             }

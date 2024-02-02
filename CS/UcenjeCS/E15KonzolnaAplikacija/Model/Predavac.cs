@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,12 @@ namespace UcenjeCS.E15KonzolnaAplikacija.Model
     {
         public string Iban { get; set; }
 
+        public override string ToString()
+        {
+            return Ime + " " + Prezime;
+        }
+
     }
+
+
 }

@@ -5,10 +5,13 @@ namespace UcenjeCS.E15KonzolnaAplikacija
     internal class Izbornik
     {
         public ObradaSmjer ObradaSmjer { get; }
+        public ObradaPredavac ObradaPredavac { get; set; }
         public Izbornik()
         {
             Pomocno.dev = true;
             ObradaSmjer = new ObradaSmjer();
+            ObradaPredavac = new ObradaPredavac();
+
             PozdravnaPoruka();
             PrikaziIzbornik();
         }
@@ -40,6 +43,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                     break;
                 case 2:
                     Console.WriteLine("Odabrali ste rad s predavačima");
+                    ObradaPredavac.PrikaziIzbornik();
                     break;
                 case 3:
                     Console.WriteLine("Odabrali ste rad s polaznicima");

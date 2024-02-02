@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UcenjeCS.E15KonzolnaAplikacija.Model
 {
-    internal abstract class Osoba
+    internal abstract class Osoba : Entitet
     {
         public string Ime { get; set; }
         public string Prezime { get; set; }
