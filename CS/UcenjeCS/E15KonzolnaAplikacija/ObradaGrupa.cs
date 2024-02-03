@@ -139,6 +139,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 Izbornik.ObradaPredavac.DodajNovogPredavaca();
             }
             grupa.Predavac = PostaviPredavaca();
+            grupa.DatumPocetka = Pomocno.UcitajDatum("Unesite datum početka grupe: (format dd.MM.yyyy.", "Molim ispravan format datuma!");
 
             Console.WriteLine("");
             Console.WriteLine("Grupa uspješno dodana.");

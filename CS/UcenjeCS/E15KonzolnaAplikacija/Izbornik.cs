@@ -5,6 +5,7 @@
         public ObradaSmjer ObradaSmjer { get; }
         public ObradaPredavac ObradaPredavac { get; set; }
         private ObradaGrupa ObradaGrupa { get; set; }
+        public ObradaPolaznik ObradaPolaznik { get; set; }
 
         public Izbornik()
         {
@@ -12,6 +13,7 @@
             ObradaSmjer = new ObradaSmjer();
             ObradaPredavac = new ObradaPredavac();
             ObradaGrupa = new ObradaGrupa(this);
+            ObradaPolaznik = new ObradaPolaznik();
 
             PozdravnaPoruka();
             PrikaziIzbornik();
@@ -49,6 +51,8 @@
                     break;
                 case 3:
                     Console.WriteLine("Odabrali ste rad s polaznicima");
+                    ObradaPolaznik.PrikaziIzbornik();
+                    PrikaziIzbornik();
                     break;
                 case 4:
                     Console.WriteLine("Odabrali ste rad s grupama");

@@ -118,6 +118,22 @@
 
         }
 
+        public static DateTime UcitajDatum(string poruka, string greska)
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine(poruka);
+                    return DateTime.Parse(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(greska);
+                }
+            }
+        }
+
         public static int ValidirajSifru<T>(string poruka, List<T> entiteti, Func<T, int> dohvatiSifru, int trenutnaSifra, string greska)
         {
             int unos;

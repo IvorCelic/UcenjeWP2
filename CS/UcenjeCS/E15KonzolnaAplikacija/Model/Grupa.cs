@@ -7,6 +7,7 @@
         public Smjer Smjer { get; set; }
         public int MaksimalnoPolaznika { get; set; }
         public DateTime DatumPocetka { get; set; }
+        public List<Polaznik> Polaznici { get; set; }
 
         public override string ToString()
         {
