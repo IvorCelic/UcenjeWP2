@@ -92,12 +92,30 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 int index = Pomocno.UcitajBrojRaspon("Odaberi predavača za promjenu: ", "Odaberi iz ponuđenog!", 1, Predavaci.Count);
                 var predavac = Predavaci[index - 1];
 
-                predavac.Sifra = Pomocno.ValidirajSifru("Trenutna šifra: " + predavac.Sifra + " | Unesi novu šifru: ", Predavaci, p => p.Sifra, predavac.Sifra, "Unos mora biti cijeli pozitivni broj!");
-                predavac.Ime = Pomocno.UcitajString("Trenutno ime: " + predavac.Ime + " | Unesi novo ime: ", "Unos obavezan!");
-                predavac.Prezime = Pomocno.UcitajString("Trenutno prezime: " + predavac.Prezime + " | Unesi novo prezime: ", "Unos obavezan!");
-                predavac.Oib = Pomocno.UcitajString("Trenutni oib: " + predavac.Oib + " | Unesi novi oib: ", "Unos obavezan!");
-                predavac.Email = Pomocno.UcitajString("Trenutni email: " + predavac.Email + " | Unesi novi email: ", "Unos obavezan!");
-                predavac.Iban = Pomocno.UcitajString("Trenutni iban: " + predavac.Iban + " | Unesi novi iban: ", "Unos obavezan!");
+                if (Pomocno.UcitajBool("Želite li promjeniti šifru predavača? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    predavac.Sifra = Pomocno.ValidirajSifru("Trenutna šifra: " + predavac.Sifra + " | Unesi novu šifru: ", Predavaci, p => p.Sifra, predavac.Sifra, "Unos mora biti cijeli pozitivni broj!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti ime predavača? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    predavac.Ime = Pomocno.UcitajString("Trenutno ime: " + predavac.Ime + " | Unesi novo ime: ", "Unos obavezan!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti prezime predavača? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    predavac.Prezime = Pomocno.UcitajString("Trenutno prezime: " + predavac.Prezime + " | Unesi novo prezime: ", "Unos obavezan!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti oib predavača? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    predavac.Oib = Pomocno.UcitajString("Trenutni oib: " + predavac.Oib + " | Unesi novi oib: ", "Unos obavezan!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti email predavača? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    predavac.Email = Pomocno.UcitajString("Trenutni email: " + predavac.Email + " | Unesi novi email: ", "Unos obavezan!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti iban predavača? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    predavac.Iban = Pomocno.UcitajString("Trenutni iban: " + predavac.Iban + " | Unesi novi iban: ", "Unos obavezan!");
+                }
 
                 Console.WriteLine("");
                 Console.WriteLine("Predavač uspješno promjenjen!");

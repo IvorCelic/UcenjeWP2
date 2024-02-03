@@ -90,12 +90,30 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 int index = Pomocno.UcitajBrojRaspon("Odaberi polaznika za promjenu: ", "Odaberi iz ponuđenog!", 1, Polaznici.Count);
                 var polaznik = Polaznici[index - 1];
 
-                polaznik.Sifra = Pomocno.ValidirajSifru("Trenutna šifra: " + polaznik.Sifra + " | Unesi novu šifru: ", Polaznici, p => p.Sifra, polaznik.Sifra, "Unos mora biti cijeli pozitivni broj!");
-                polaznik.Ime = Pomocno.UcitajString("Trenutno ime: " + polaznik.Ime + " | Unesi novo ime: ", "Unos obavezan!");
-                polaznik.Prezime = Pomocno.UcitajString("Trenutno prezime: " + polaznik.Prezime + " | Unesi novo prezime: ", "Unos obavezan!");
-                polaznik.Oib = Pomocno.UcitajString("Trenutni oib: " + polaznik.Oib + " | Unesi novi oib: ", "Unos obavezan!");
-                polaznik.Email = Pomocno.UcitajString("Trenutni email: " + polaznik.Email + " | Unesi novi email: ", "Unos obavezan!");
-                polaznik.BrojUgovora = Pomocno.UcitajString("Trenutni broj ugovora: " + polaznik.BrojUgovora + " | Unesi novi broj ugovora: ", "Unos obavezan!");
+                if (Pomocno.UcitajBool("Želite li promjeniti šifru polaznika? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    polaznik.Sifra = Pomocno.ValidirajSifru("Trenutna šifra: " + polaznik.Sifra + " | Unesi novu šifru: ", Polaznici, p => p.Sifra, polaznik.Sifra, "Unos mora biti cijeli pozitivni broj!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti ime polaznika? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    polaznik.Ime = Pomocno.UcitajString("Trenutno ime: " + polaznik.Ime + " | Unesi novo ime: ", "Unos obavezan!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti prezime polaznika? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    polaznik.Prezime = Pomocno.UcitajString("Trenutno prezime: " + polaznik.Prezime + " | Unesi novo prezime: ", "Unos obavezan!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti oib polaznika? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    polaznik.Oib = Pomocno.UcitajString("Trenutni oib: " + polaznik.Oib + " | Unesi novi oib: ", "Unos obavezan!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti email polaznika? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    polaznik.Email = Pomocno.UcitajString("Trenutni email: " + polaznik.Email + " | Unesi novi email: ", "Unos obavezan!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti broj ugovora polaznika? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    polaznik.BrojUgovora = Pomocno.UcitajString("Trenutni broj ugovora: " + polaznik.BrojUgovora + " | Unesi novi broj ugovora: ", "Unos obavezan!");
+                }
 
                 Console.WriteLine("");
                 Console.WriteLine("Polaznik uspješno promjenjen!");
@@ -151,7 +169,8 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 Ime = "Ivor",
                 Prezime = "Ćelić",
                 Email = "ivorcelic@gmail.com",
-                Oib = "11111111111"
+                Oib = "11111111111",
+                BrojUgovora = "1/1/24"
             });
 
             Polaznici.Add(new Polaznik()
@@ -160,7 +179,9 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 Ime = "Antonio",
                 Prezime = "Antunović",
                 Email = "antisa@gmail.com",
-                Oib = "22222222222"
+                Oib = "22222222222",
+                BrojUgovora = "2/1/24"
+
             });
 
             Polaznici.Add(new Polaznik()
@@ -169,7 +190,8 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 Ime = "Ivan",
                 Prezime = "Ivanić",
                 Email = "ivanecgmail.com",
-                Oib = "33333333333"
+                Oib = "33333333333",
+                BrojUgovora = "3/1/24"
             });
 
             Polaznici.Add(new Polaznik()
@@ -178,7 +200,8 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 Ime = "Ana",
                 Prezime = "Anić",
                 Email = "anica@gmail.com",
-                Oib = "44444444444"
+                Oib = "44444444444",
+                BrojUgovora = "1/2/24"
             });
         }
     }

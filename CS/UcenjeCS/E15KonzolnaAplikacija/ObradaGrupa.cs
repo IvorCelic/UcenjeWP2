@@ -95,14 +95,33 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 int index = Pomocno.UcitajBrojRaspon("Odaberi grupu za promjenu: ", "Odaberi iz ponuđenog!", 1, Grupe.Count);
                 var grupa = Grupe[index - 1];
 
-                grupa.Sifra = Pomocno.ValidirajSifru("Trenutna šifra: " + grupa.Sifra + " | Unesi novu šifru: ", Grupe, p => p.Sifra, grupa.Sifra, "Unos mora biti cijeli pozitivni broj!");
-                grupa.Naziv = Pomocno.UcitajString("Trenutni naziv: " + grupa.Naziv + " | Unesi novi naziv: ", "Unos obavezan!");
+                if (Pomocno.UcitajBool("Želite li promjeniti šifru grupe? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    grupa.Sifra = Pomocno.ValidirajSifru("Trenutna šifra: " + grupa.Sifra + " | Unesi novu šifru: ", Grupe, p => p.Sifra, grupa.Sifra, "Unos mora biti cijeli pozitivni broj!");
+                }
 
-                Console.WriteLine("Trenutni smjer: " + grupa.Smjer);
-                grupa.Smjer = PostaviSmjer();
+                if (Pomocno.UcitajBool("Želite li promjeniti naziv grupe? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    grupa.Naziv = Pomocno.UcitajString("Trenutni naziv: " + grupa.Naziv + " | Unesi novi naziv: ", "Unos obavezan!");
+                }
 
-                Console.WriteLine("Trenutni predavač: " + grupa.Predavac);
-                grupa.Predavac = PostaviPredavaca();
+                if (Pomocno.UcitajBool("Želite li promjeniti smjer grupe? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    Console.WriteLine("Trenutni smjer: " + grupa.Smjer);
+                    grupa.Smjer = PostaviSmjer();
+                }
+
+                if (Pomocno.UcitajBool("Želite li promjeniti maksimalno polaznika u grupi? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    grupa.MaksimalnoPolaznika = Pomocno.UcitajInt("Trenutni maksimalni broj polaznika: " + grupa.MaksimalnoPolaznika + " | Unesi novi maksimalni broj polaznika: ", "Unos mora biti cijeli pozitivni broj!");
+                }
+
+                if (Pomocno.UcitajBool("Želite li promjeniti predavača grupe? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    Console.WriteLine("Trenutni predavač: " + grupa.Predavac);
+                    grupa.Predavac = PostaviPredavaca();
+                }
+
 
                 if (grupa.Polaznici.Count() <= 0)
                 {
@@ -146,6 +165,8 @@ namespace UcenjeCS.E15KonzolnaAplikacija
             }
             grupa.Smjer = PostaviSmjer();
 
+            grupa.MaksimalnoPolaznika = Pomocno.UcitajInt("Unesi maksimalni broj polaznika grupe: ", "Unos mora biti cijeli pozitivni broj!");
+
             if (Izbornik.ObradaPredavac.Predavaci.Count <= 0)
             {
                 Console.WriteLine("Trenutno ne postoji ni jedan predavač! Molimo dodajte novog: ");
@@ -187,7 +208,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
         {
             List<Polaznik> polaznici = new List<Polaznik>(trenutnaGrupa.Polaznici);
 
-            while (Pomocno.UcitajBool("Ako želite obrisati grupi trenutne polaznike upišite \"da\", ako ne, upišite bilo šta: "))
+            while (Pomocno.UcitajBool("Želite li obrisati trenutne polaznike grupe? (unesite \"da\" za brisanje i bilo što za ne): "))
             {
                 PrikaziPolaznike(polaznici);
 
@@ -207,18 +228,17 @@ namespace UcenjeCS.E15KonzolnaAplikacija
             return polaznici;
         }
 
+        //private int ObrisiPolaznika(Grupa trenutnaGrupa)
+        //{
+        //    PrikaziPolaznike(trenutnaGrupa.Polaznici);
 
-        private int ObrisiPolaznika(Grupa trenutnaGrupa)
-        {
-            PrikaziPolaznike(trenutnaGrupa.Polaznici);
-
-            return Pomocno.UcitajBrojRaspon("Odaberi polaznika kojeg želiš obrisati s grupe: ", "Odaberi iz ponuđenog!", 1, trenutnaGrupa.Polaznici.Count());
-        }
+        //    return Pomocno.UcitajBrojRaspon("Odaberi polaznika kojeg želiš obrisati s grupe: ", "Odaberi iz ponuđenog!", 1, trenutnaGrupa.Polaznici.Count());
+        //}
 
         private List<Polaznik> DodajPolaznike()
         {
             List<Polaznik> polaznici = new List<Polaznik>();
-            while (Pomocno.UcitajBool("Ako želite dodati grupi nove polaznike upišite \"da\", ako ne, upišite bilo šta: "))
+            while (Pomocno.UcitajBool("Želite li dodati polaznike na trenutnu grupu? (unesite \"da\" za brisanje i bilo što za ne): "))
             {
                 polaznici.Add(DodajPolaznika());
             }

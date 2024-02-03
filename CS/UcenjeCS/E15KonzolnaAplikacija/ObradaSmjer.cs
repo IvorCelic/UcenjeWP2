@@ -91,12 +91,30 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 int index = Pomocno.UcitajBrojRaspon("Odaberi smjer za promjenu: ", "Odaberi iz ponuđenog!", 1, Smjerovi.Count);
                 var smjer = Smjerovi[index - 1];
 
-                smjer.Sifra = Pomocno.ValidirajSifru("Trenutna šifra: " + smjer.Sifra + " | Unesi novu šifru: ", Smjerovi, s => s.Sifra, smjer.Sifra, "Unos mora biti cijeli pozitivni broj!");
-                smjer.Naziv = Pomocno.UcitajString("Trenutni naziv: " + smjer.Naziv + " | Unesi novi naziv: ", "Unos obavezan!");
-                smjer.Trajanje = Pomocno.UcitajInt("Trenutno trajanje smjera: " + smjer.Trajanje + " | Unesi novi broj sati: ", "Unos mora biti cijeli pozitivni broj!");
-                smjer.Cijena = Pomocno.UcitajDecimalniBroj("Trenutna cijena: " + smjer.Cijena + " | Unesite novu cijenu smjera: ", "Unos mora biti pozitivan broj!");
-                smjer.Upisnina = Pomocno.UcitajDecimalniBroj("Trenutna upisnina: " + smjer.Upisnina + " | Unesite novu upisninu smjera: ", "Unos mora biti pozitivan broj!");
-                smjer.Verificiran = Pomocno.UcitajBool("Trenutna verificiranost: " + smjer.Verificiran + " | Unesite novu verificiranost smjera (\"da\" ako je verificiran, ako nije, unesite bilo šta): ");
+                if (Pomocno.UcitajBool("Želite li promjeniti šifru smjera? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    smjer.Sifra = Pomocno.ValidirajSifru("Trenutna šifra: " + smjer.Sifra + " | Unesi novu šifru: ", Smjerovi, s => s.Sifra, smjer.Sifra, "Unos mora biti cijeli pozitivni broj!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti naziv smjera? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    smjer.Naziv = Pomocno.UcitajString("Trenutni naziv: " + smjer.Naziv + " | Unesi novi naziv: ", "Unos obavezan!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti trajanje smjera? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    smjer.Trajanje = Pomocno.UcitajInt("Trenutno trajanje smjera: " + smjer.Trajanje + " | Unesi novi broj sati: ", "Unos mora biti cijeli pozitivni broj!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti cijenu smjera? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    smjer.Cijena = Pomocno.UcitajDecimalniBroj("Trenutna cijena: " + smjer.Cijena + " | Unesite novu cijenu smjera: ", "Unos mora biti pozitivan broj!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti upisninu smjera? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    smjer.Upisnina = Pomocno.UcitajDecimalniBroj("Trenutna upisnina: " + smjer.Upisnina + " | Unesite novu upisninu smjera: ", "Unos mora biti pozitivan broj!");
+                }
+                if (Pomocno.UcitajBool("Želite li promjeniti verificiranost smjera? (unesite \"da\" za promjenu i bilo što za ne): "))
+                {
+                    smjer.Verificiran = Pomocno.UcitajBool("Trenutna verificiranost: " + smjer.Verificiran + " | Unesite novu verificiranost smjera (\"da\" ako je verificiran, ako nije, unesite bilo šta): ");
+                }
 
                 Console.WriteLine("");
                 Console.WriteLine("Smjer uspješno promjenjen!");
