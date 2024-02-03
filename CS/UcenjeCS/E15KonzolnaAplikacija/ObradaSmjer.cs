@@ -74,7 +74,6 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 Console.WriteLine("");
                 Console.WriteLine("Trenutno ne postoji ni jedan smjer.");
             }
-
         }
 
         private void UrediSmjer()
@@ -97,6 +96,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 smjer.Trajanje = Pomocno.UcitajInt("Trenutno trajanje smjera: " + smjer.Trajanje + " | Unesi novi broj sati: ", "Unos mora biti cijeli pozitivni broj!");
                 smjer.Cijena = Pomocno.UcitajDecimalniBroj("Trenutna cijena: " + smjer.Cijena + " | Unesite novu cijenu smjera: ", "Unos mora biti pozitivan broj!");
                 smjer.Upisnina = Pomocno.UcitajDecimalniBroj("Trenutna upisnina: " + smjer.Upisnina + " | Unesite novu upisninu smjera: ", "Unos mora biti pozitivan broj!");
+                smjer.Verificiran = Pomocno.UcitajBool("Trenutna verificiranost: " + smjer.Verificiran + " | Unesite novu verificiranost smjera (\"da\" ako je verificiran, ako nije, unesite bilo šta): ");
 
                 Console.WriteLine("");
                 Console.WriteLine("Smjer uspješno promjenjen!");

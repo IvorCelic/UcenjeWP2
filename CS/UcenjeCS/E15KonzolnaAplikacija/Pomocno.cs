@@ -25,12 +25,11 @@
                     Console.WriteLine(greska);
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Console.WriteLine(greska);
                 }
             }
-
         }
 
         public static int UcitajInt(string poruka, string greska)
@@ -57,7 +56,6 @@
                     Console.WriteLine(greska);
                 }
             }
-
         }
 
         public static decimal UcitajDecimalniBroj(string poruka, string greska)
@@ -83,7 +81,6 @@
                     Console.WriteLine(greska);
                 }
             }
-
         }
 
         public static string UcitajString(string poruka, string greska)
@@ -102,7 +99,6 @@
                 Console.WriteLine(greska);
 
             }
-
         }
 
         public static bool UcitajBool(string poruka)
@@ -115,7 +111,6 @@
             }
 
             return false;
-
         }
 
         public static DateTime UcitajDatum(string poruka, string greska)
@@ -150,7 +145,6 @@
                 Console.WriteLine("Šifra već postoji. Molimo unesite drugu.");
 
             }
-
         }
 
 

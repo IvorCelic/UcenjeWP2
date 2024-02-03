@@ -21,9 +21,10 @@
 
         private void PozdravnaPoruka()
         {
-            Console.WriteLine("**********************************");
-            Console.WriteLine("* EDUNOVA KONZOLNA APLIKACIJA v1 *");
-            Console.WriteLine("**********************************");
+            Console.WriteLine(" ____________________________________ ");
+            Console.WriteLine("|                                    |");
+            Console.WriteLine("|   EDUNOVA KONZOLNA APLIKACIJA v1   |");
+            Console.WriteLine("|____________________________________|");
         }
         public void PrikaziIzbornik()
         {

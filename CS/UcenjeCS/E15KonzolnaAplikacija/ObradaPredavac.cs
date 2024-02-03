@@ -107,7 +107,6 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 Console.WriteLine("");
                 Console.WriteLine("Trenutno ne postoji ni jedan predavač!");
             }
-
         }
 
         public void DodajNovogPredavaca()
