@@ -147,5 +147,17 @@
             }
         }
 
+        public static T UrediVrijednost<T>(T trenutnaVrijednost, Func<string, T> funkcijaUnosa, string poruka)
+        {
+            if (UcitajBool($"Želite li promjeniti {poruka} (Unesite \"da\" za promjenu i bilo što za ne): "))
+            {
+                return funkcijaUnosa($"Trenutna {poruka}: {trenutnaVrijednost} | Unesite novu {poruka}");
+            }
+            else
+            {
+                return trenutnaVrijednost;
+            }
+        }
+
     }
 }
