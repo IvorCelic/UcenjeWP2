@@ -51,7 +51,16 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                     PrikaziIzbornik();
                     break;
                 case 5:
-                    PrikaziIzbornikStatistika();
+                    if (Grupe.Count > 0)
+                    {
+                        PrikaziIzbornikStatistika();
+                    }
+                    else
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Trenutno nema grupa za statistiku.");
+                        PrikaziIzbornik();
+                    }
                     PrikaziIzbornik();
                     break;
                 case 6:
@@ -81,6 +90,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                     PrikaziIzbornikStatistika();
                     break;
                 case 2:
+                    IspisiProsjecanBrojPolaznikaUGrupi();
                     PrikaziIzbornikStatistika();
                     break;
                 case 3:
@@ -98,22 +108,34 @@ namespace UcenjeCS.E15KonzolnaAplikacija
             }
         }
 
+        private void IspisiProsjecanBrojPolaznikaUGrupi()
+        {
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("Prosječnost polaznika po grupama");
+            Console.WriteLine("--------------------------------");
 
+            var redniBroj = 0;
+            double prosjecanBrojPolaznika;
+            Grupe.ForEach(grupa =>
+            {
+                if (grupa.Polaznici.Count > 0)
+                {
+                    prosjecanBrojPolaznika = (double)grupa.Polaznici.Count / grupa.MaksimalnoPolaznika * 100;
+                    Console.WriteLine(++redniBroj + ". " + grupa + ": Prosječan broj polaznika: " + prosjecanBrojPolaznika + " %");
+                }
+                else
+                {
+                    Console.WriteLine("Nema polaznika u ovoj grupi.");
+                }
+            });
+        }
 
         private void IspisiUkupanBrojPolaznikaNaSvimGrupama()
         {
             Console.WriteLine("");
-            try
-            {
-                int ukupanBrojPolaznika = Grupe.Sum(grupa => grupa.Polaznici.Count);
+            int ukupanBrojPolaznika = Grupe.Sum(grupa => grupa.Polaznici.Count);
 
-                Console.Write($"Ukupno polaznika na svim grupama: {ukupanBrojPolaznika}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Trenutno ni jedan polaznik ne pohađa ni jednu grupu.");
-            }
-
+            Console.Write($"Ukupno polaznika na svim grupama: {ukupanBrojPolaznika}");
         }
 
         private void ObrisiGrupu()
@@ -187,11 +209,11 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 if (grupa.Polaznici.Count() <= 0)
                 {
                     Console.WriteLine("Trenutno nema polaznika u ovoj grupi.");
-                    grupa.Polaznici.AddRange(DodajPolaznike(Grupe));
+                    grupa.Polaznici.AddRange(DodajPolaznike(Grupe, grupa));
                 }
                 else
                 {
-                    grupa.Polaznici.AddRange(DodajPolaznike(Grupe));
+                    grupa.Polaznici.AddRange(DodajPolaznike(Grupe, grupa));
                     grupa.Polaznici = ObrisiPolaznike(grupa);
                 }
 
@@ -240,7 +262,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                 Console.WriteLine("Trenutno ne postoji ni jedan polaznik! Molimo dodajte novog: ");
                 Izbornik.ObradaPolaznik.DodajNovogPolaznika();
             }
-            grupa.Polaznici = DodajPolaznike(Grupe);
+            grupa.Polaznici.AddRange(DodajPolaznike(Grupe, grupa));
 
             grupa.DatumPocetka = Pomocno.UcitajDatum("Unesite datum početka grupe: (format dd.MM.yyyy.", "Molim ispravan format datuma!");
 
@@ -268,12 +290,13 @@ namespace UcenjeCS.E15KonzolnaAplikacija
         private List<Polaznik> ObrisiPolaznike(Grupa trenutnaGrupa)
         {
             List<Polaznik> polaznici = new List<Polaznik>(trenutnaGrupa.Polaznici);
+            int odabraniPolaznikIndex;
 
             while (Pomocno.UcitajBool("Želite li obrisati trenutne polaznike grupe? (unesite \"da\" za brisanje i bilo što za ne): "))
             {
                 PrikaziPolaznike(polaznici);
 
-                int odabraniPolaznikIndex = Pomocno.UcitajBrojRaspon("Odaberi polaznika kojeg želiš obrisati s grupe: ", "Odaberi iz ponuđenog!", 1, polaznici.Count()) - 1;
+                odabraniPolaznikIndex = Pomocno.UcitajBrojRaspon("Odaberi polaznika kojeg želiš obrisati s grupe: ", "Odaberi iz ponuđenog!", 1, polaznici.Count()) - 1;
 
                 if (odabraniPolaznikIndex >= 0 && odabraniPolaznikIndex < polaznici.Count)
                 {
@@ -289,25 +312,20 @@ namespace UcenjeCS.E15KonzolnaAplikacija
             return polaznici;
         }
 
-        //private int ObrisiPolaznika(Grupa trenutnaGrupa)
-        //{
-        //    PrikaziPolaznike(trenutnaGrupa.Polaznici);
-
-        //    return Pomocno.UcitajBrojRaspon("Odaberi polaznika kojeg želiš obrisati s grupe: ", "Odaberi iz ponuđenog!", 1, trenutnaGrupa.Polaznici.Count());
-        //}
-
-        private List<Polaznik> DodajPolaznike(List<Grupa> grupe)
+        private List<Polaznik> DodajPolaznike(List<Grupa> grupe, Grupa trenutnaGrupa)
         {
             List<Polaznik> polaznici = new List<Polaznik>();
             while (Pomocno.UcitajBool("Želite li dodati polaznike na trenutnu grupu? (unesite \"da\" za brisanje i bilo što za ne): "))
             {
-                polaznici.Add(DodajPolaznika(grupe));
+                var noviPolaznik = DodajPolaznika(grupe, trenutnaGrupa);
+                polaznici.Add(DodajPolaznika(grupe, trenutnaGrupa));
+                trenutnaGrupa.Polaznici.Add(noviPolaznik);
             }
 
             return polaznici;
         }
 
-        private Polaznik DodajPolaznika(List<Grupa> grupe)
+        private Polaznik DodajPolaznika(List<Grupa> grupe, Grupa trenutnaGrupa)
         {
             int index;
             while (true)
@@ -317,28 +335,24 @@ namespace UcenjeCS.E15KonzolnaAplikacija
 
                 var odabraniPolaznik = Izbornik.ObradaPolaznik.Polaznici[index - 1];
 
-                if (!ValidacijaPolaznikaUGrupi(odabraniPolaznik, grupe))
+                if (!ValidacijaPolaznikaUTrenutnojGrupi(odabraniPolaznik, trenutnaGrupa))
                 {
                     return odabraniPolaznik;
-                }
-                else
-                {
-                    Console.WriteLine("Polaznik se već nalazi u grupi. Dodajte novog.");
                 }
             }
         }
 
-        private bool ValidacijaPolaznikaUGrupi(Polaznik polaznik, List<Grupa> grupe)
+        private bool ValidacijaPolaznikaUTrenutnojGrupi(Polaznik polaznik, Grupa trenutnaGrupa)
         {
-            foreach (var grupa in grupe)
+            if (trenutnaGrupa.Polaznici.Any(p => p != null && p.Sifra == polaznik.Sifra))
             {
-                if (grupa.Polaznici.Any(p => p.Sifra == polaznik.Sifra))
-                {
-                    return true;
-                }
+                Console.WriteLine("Polaznik se već nalazi u grupi.");
+                return false;
             }
-
-            return false;
+            else
+            {
+                return true;
+            }
         }
 
         private void PrikaziPolaznike(List<Polaznik> polaznici)

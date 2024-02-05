@@ -8,6 +8,11 @@
         public int MaksimalnoPolaznika { get; set; }
         public DateTime DatumPocetka { get; set; }
         public List<Polaznik> Polaznici { get; set; }
+        
+        public Grupa()
+        {
+            Polaznici = new List<Polaznik>();
+        }
 
         public override string ToString()
         {
