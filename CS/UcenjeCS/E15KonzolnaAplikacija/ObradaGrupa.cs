@@ -28,10 +28,11 @@ namespace UcenjeCS.E15KonzolnaAplikacija
             Console.WriteLine("2. Dodaj grupu");
             Console.WriteLine("3. Uredi grupu");
             Console.WriteLine("4. Obriši grupu");
-            Console.WriteLine("5. Povratak na glavni izbornik");
+            Console.WriteLine("5. Statistika");
+            Console.WriteLine("6. Povratak na glavni izbornik");
             Console.WriteLine("");
 
-            switch (Pomocno.UcitajBrojRaspon("Unesi izbor: ", "Odaberi iz ponuđenog!", 1, 5))
+            switch (Pomocno.UcitajBrojRaspon("Unesi izbor: ", "Odaberi iz ponuđenog!", 1, 6))
             {
                 case 1:
                     PrikaziSveGrupe();
@@ -50,9 +51,69 @@ namespace UcenjeCS.E15KonzolnaAplikacija
                     PrikaziIzbornik();
                     break;
                 case 5:
+                    PrikaziIzbornikStatistika();
+                    PrikaziIzbornik();
+                    break;
+                case 6:
                     Console.WriteLine("Povratak na glavni izbornik");
                     break;
             }
+        }
+
+        public void PrikaziIzbornikStatistika()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("----------");
+            Console.WriteLine("Statistika");
+            Console.WriteLine("----------");
+            Console.WriteLine("1. Prikaži ukupno polaznika na svim grupama");
+            Console.WriteLine("2. Prikaži prosječan broj polaznika u grupi");
+            Console.WriteLine("3. Prikaži ukupan iznos prihoda po smjerovima");
+            Console.WriteLine("4. Prikaži prosječan iznos prihoda po polazniku");
+            Console.WriteLine("5. Prikaži najraniji i najkasniji početak grupe uz ispis razlike broja dana između ta dva datuma");
+            Console.WriteLine("6. Povratak na glavni izbornik");
+            Console.WriteLine("");
+
+            switch (Pomocno.UcitajBrojRaspon("Unesi izbor: ", "Odaberi iz ponuđenog!", 1, 6))
+            {
+                case 1:
+                    IspisiUkupanBrojPolaznikaNaSvimGrupama();
+                    PrikaziIzbornikStatistika();
+                    break;
+                case 2:
+                    PrikaziIzbornikStatistika();
+                    break;
+                case 3:
+                    PrikaziIzbornikStatistika();
+                    break;
+                case 4:
+                    PrikaziIzbornikStatistika();
+                    break;
+                case 5:
+                    PrikaziIzbornikStatistika();
+                    break;
+                case 6:
+                    Console.WriteLine("Povratak na glavni izbornik");
+                    break;
+            }
+        }
+
+
+
+        private void IspisiUkupanBrojPolaznikaNaSvimGrupama()
+        {
+            Console.WriteLine("");
+            try
+            {
+                int ukupanBrojPolaznika = Grupe.Sum(grupa => grupa.Polaznici.Count);
+
+                Console.Write($"Ukupno polaznika na svim grupama: {ukupanBrojPolaznika}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Trenutno ni jedan polaznik ne pohađa ni jednu grupu.");
+            }
+
         }
 
         private void ObrisiGrupu()
@@ -189,7 +250,7 @@ namespace UcenjeCS.E15KonzolnaAplikacija
             Grupe.Add(grupa);
         }
 
-        private void PrikaziSveGrupe()
+        public void PrikaziSveGrupe()
         {
             Console.WriteLine("-----");
             Console.WriteLine("Grupe");
