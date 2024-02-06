@@ -42,4 +42,10 @@
 
 // UcenjeCS.E14Polimorfizam.Program.Izvedi();
 
-new UcenjeCS.E15KonzolnaAplikacija.Izbornik(); // Ovako pozivamo konstruktor 
+// new UcenjeCS.E15KonzolnaAplikacija.Izbornik(); // Ovako pozivamo konstruktor 
+
+// new UcenjeCS.E16Lambda.Program();
+
+// new UcenjeCS.E17Delegati.Program();
+
+new UcenjeCS.E18Ekstenzije.Program();
