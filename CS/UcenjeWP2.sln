@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPIDemo", "WebAPIDemo\We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UcenjeCS", "UcenjeCS\UcenjeCS.csproj", "{F568FF1B-B1AB-4C41-BB32-BC306E54A5DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppMVCCourse", "WebAppMVCCourse\WebAppMVCCourse.csproj", "{65BD0D08-6CB1-4E04-89D3-353DAD733E89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppMVCCourse", "WebAppMVCCourse\WebAppMVCCourse.csproj", "{65BD0D08-6CB1-4E04-89D3-353DAD733E89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdunovaAPP", "EdunovaAPP\EdunovaAPP.csproj", "{8C3B47D2-5559-44F9-B15F-A95013570113}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{65BD0D08-6CB1-4E04-89D3-353DAD733E89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65BD0D08-6CB1-4E04-89D3-353DAD733E89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65BD0D08-6CB1-4E04-89D3-353DAD733E89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C3B47D2-5559-44F9-B15F-A95013570113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C3B47D2-5559-44F9-B15F-A95013570113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C3B47D2-5559-44F9-B15F-A95013570113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C3B47D2-5559-44F9-B15F-A95013570113}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
