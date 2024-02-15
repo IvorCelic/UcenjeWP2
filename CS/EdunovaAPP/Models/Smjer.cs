@@ -33,10 +33,10 @@ namespace EdunovaAPP.Models
         /// </summary>
         public decimal? Upisnina { get; set; }
 
-        ///// <summary>
-        ///// Oznaka je li smjer verificiran od strane ministarstva ili ne
-        ///// </summary>
-        //public bool? Verificiran { get; set; }
+        /// <summary>
+        /// Oznaka je li smjer verificiran od strane ministarstva ili ne
+        /// </summary>
+        public bool? Verificiran { get; set; }
 
     }
 }

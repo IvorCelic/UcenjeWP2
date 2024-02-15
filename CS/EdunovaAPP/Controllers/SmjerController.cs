@@ -1,5 +1,7 @@
 ﻿using EdunovaAPP.Data;
+using EdunovaAPP.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 
 namespace EdunovaAPP.Controllers
 {
@@ -61,5 +63,117 @@ namespace EdunovaAPP.Controllers
                 return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
             }
         }
+
+
+        /// <summary>
+        /// Dodaje novi smjer u bazu
+        /// </summary>
+        /// <remarks>
+        ///     POST api/v1/Smjer
+        ///     {naziv: "Primjer naziva"}
+        /// </remarks>
+        /// <param name="smjer">Smjer za unijeti u JSON formatu</param>
+        /// <response code="201">Kreirano</response>
+        /// <response code="400">Zahtjev nije valjan</response>
+        /// <response code="503">Baza nedostupna iz razno raznih razloga</response>
+        /// <returns>Smjer s šifrom koju je dala baza</returns>
+        [HttpPost]
+        public IActionResult Post(Smjer smjer)
+        {
+            if (!ModelState.IsValid || smjer == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                _context.Smjerovi.Add(smjer);
+                _context.SaveChanges();
+
+                return StatusCode(StatusCodes.Status201Created, smjer);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Mijenja podatke postojećeg smjera u bazi
+        /// </summary>
+        /// <param name="sifra"></param>
+        /// <param name="smjer"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{sifra:int}")]
+        public IActionResult Put(int sifra, Smjer smjer)
+        {
+            if (sifra <= 0 || !ModelState.IsValid || smjer == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var smjerIzBaze = _context.Smjerovi.Find(sifra);
+
+                if (smjerIzBaze == null)
+                {
+                    return BadRequest();
+                }
+
+                // inače ovo rade mapperi
+                // za sada ručno
+                smjerIzBaze.Naziv = smjer.Naziv;
+                smjerIzBaze.Trajanje = smjer.Trajanje;
+                smjerIzBaze.Cijena = smjer.Cijena;
+                smjerIzBaze.Upisnina = smjer.Upisnina;
+                smjerIzBaze.Verificiran = smjer.Verificiran;
+
+                _context.Smjerovi.Update(smjerIzBaze);
+                _context.SaveChanges();
+
+                return StatusCode(StatusCodes.Status200OK, smjerIzBaze);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("{sifra:int}")]
+        [Produces("application/json")]
+        public IActionResult Delete(int sifra, Smjer smjer)
+        {
+            if (sifra <= 0 || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var smjerIzBaze = _context.Smjerovi.Find(sifra);
+
+                if (smjerIzBaze == null)
+                {
+                    return StatusCode(StatusCodes.Status204NoContent, sifra);
+                }
+
+                _context.Smjerovi.Remove(smjerIzBaze);
+                _context.SaveChanges();
+
+                return new JsonResult("{\"poruka\": \"Obrisano\"}"); // Ovo nije baš najbolja praksa ali evo i to se može
+            }
+            catch (SqlException ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.ErrorCode);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
+            }
+        }
+
     }
 }
