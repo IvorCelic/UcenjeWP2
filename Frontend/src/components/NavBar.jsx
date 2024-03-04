@@ -25,6 +25,9 @@ function NavBar() {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
+        <Navbar.Collapse className="justify-content-end">
+            <Nav.Link target="_blank" href="https://tjakopec-001-site1.ftempurl.com/swagger/index.html">API dokumentacija</Nav.Link>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
