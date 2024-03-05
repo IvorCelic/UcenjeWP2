@@ -1,12 +1,14 @@
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container';
 
-export default function Pocetna() {
+export default function Pocetna(){
 
-    return (
+    return(
         <>
-            <Container>
-                Dobrodošli na Edunova aplikaciju
-            </Container>
+        <Container>
+            Dobrodošli na Edunova aplikaciju
+        </Container>
         </>
     );
+
+
 }

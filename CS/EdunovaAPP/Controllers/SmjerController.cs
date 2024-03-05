@@ -27,6 +27,33 @@ namespace EdunovaAPP.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        [Route("{sifra.int}")]
+        public IActionResult GetBySifra(int sifra)
+        {
+            // Kontrola ukoliko upit nije valjan
+            if (!ModelState.IsValid || sifra <= 0)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var smjer = _context.Smjerovi.Find(sifra);
+
+                if (smjer == null)
+                {
+                    return new EmptyResult();
+                }
+
+                return new JsonResult(smjer);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
+            }
+        }
+
         /// <summary>
         /// Dohvaća sve smjerove iz baze
         /// </summary>
