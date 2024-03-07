@@ -8,11 +8,11 @@ namespace EdunovaAPP.Controllers
 
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class PredavacController : ControllerBase
+    public class PolaznikController : ControllerBase
     {
         private readonly EdunovaContext _context;
 
-        public PredavacController(EdunovaContext context)
+        public PolaznikController(EdunovaContext context)
         {
             _context = context;
         }
@@ -29,14 +29,14 @@ namespace EdunovaAPP.Controllers
 
             try
             {
-                var predavac = _context.Predavaci.Find(sifra);
+                var polaznik = _context.Polaznici.Find(sifra);
 
-                if (predavac == null)
+                if (polaznik == null)
                 {
                     return new EmptyResult();
                 }
 
-                return new JsonResult(predavac);
+                return new JsonResult(polaznik);
             }
             catch (Exception ex)
             {
@@ -55,14 +55,14 @@ namespace EdunovaAPP.Controllers
 
             try
             {
-                var predavaci = _context.Predavaci.ToList();
+                var polaznici = _context.Polaznici.ToList();
 
-                if (predavaci == null || predavaci.Count == 0)
+                if (polaznici == null || polaznici.Count == 0)
                 {
                     return new EmptyResult();
                 }
 
-                return new JsonResult(predavaci);
+                return new JsonResult(polaznici);
             }
             catch (Exception ex)
             {
@@ -71,19 +71,19 @@ namespace EdunovaAPP.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(Predavac predavac)
+        public IActionResult Post(Polaznik polaznik)
         {
-            if (!ModelState.IsValid || predavac == null)
+            if (!ModelState.IsValid || polaznik == null)
             {
                 return BadRequest(ModelState);
             }
 
             try
             {
-                _context.Predavaci.Add(predavac);
+                _context.Polaznici.Add(polaznik);
                 _context.SaveChanges();
 
-                return StatusCode(StatusCodes.Status201Created, predavac);
+                return StatusCode(StatusCodes.Status201Created, polaznik);
             }
             catch (Exception ex)
             {
@@ -93,34 +93,34 @@ namespace EdunovaAPP.Controllers
 
         [HttpPut]
         [Route("{sifra:int}")]
-        public IActionResult Put(int sifra, Predavac predavac)
+        public IActionResult Put(int sifra, Polaznik polaznik)
         {
-            if (sifra <= 0 || !ModelState.IsValid || predavac == null)
+            if (sifra <= 0 || !ModelState.IsValid || polaznik == null)
             {
                 return BadRequest();
             }
 
             try
             {
-                var predavacIzBaze = _context.Predavaci.Find(sifra);
+                var polaznikIzBaze = _context.Polaznici.Find(sifra);
 
-                if (predavacIzBaze == null)
+                if (polaznikIzBaze == null)
                 {
                     return BadRequest();
                 }
 
                 // inače ovo rade mapperi
                 // za sada ručno
-                predavacIzBaze.Ime = predavac.Ime;
-                predavacIzBaze.Prezime = predavac.Prezime;
-                predavacIzBaze.Oib = predavac.Oib;
-                predavacIzBaze.Email = predavac.Email;
-                predavacIzBaze.Iban = predavac.Iban;
+                polaznikIzBaze.Ime = polaznik.Ime;
+                polaznikIzBaze.Prezime = polaznik.Prezime;
+                polaznikIzBaze.Oib = polaznik.Oib;
+                polaznikIzBaze.Email = polaznik.Email;
+                polaznikIzBaze.BrojUgovora = polaznik.BrojUgovora;
 
-                _context.Predavaci.Update(predavacIzBaze);
+                _context.Polaznici.Update(polaznikIzBaze);
                 _context.SaveChanges();
 
-                return StatusCode(StatusCodes.Status200OK, predavacIzBaze);
+                return StatusCode(StatusCodes.Status200OK, polaznikIzBaze);
             }
             catch (Exception ex)
             {
@@ -131,7 +131,7 @@ namespace EdunovaAPP.Controllers
         [HttpDelete]
         [Route("{sifra:int}")]
         [Produces("application/json")]
-        public IActionResult Delete(int sifra, Predavac predavac)
+        public IActionResult Delete(int sifra, Polaznik polaznik)
         {
             if (sifra <= 0 || !ModelState.IsValid)
             {
@@ -140,14 +140,14 @@ namespace EdunovaAPP.Controllers
 
             try
             {
-                var predavacIzBaze = _context.Predavaci.Find(sifra);
+                var polaznikIzBaze = _context.Polaznici.Find(sifra);
 
-                if (predavacIzBaze == null)
+                if (polaznikIzBaze == null)
                 {
                     return StatusCode(StatusCodes.Status204NoContent, sifra);
                 }
 
-                _context.Predavaci.Remove(predavacIzBaze);
+                _context.Polaznici.Remove(polaznikIzBaze);
                 _context.SaveChanges();
 
                 return new JsonResult(new { poruka = "Obrisano" }); // Ovo nije baš najbolja praksa ali evo i to se može
