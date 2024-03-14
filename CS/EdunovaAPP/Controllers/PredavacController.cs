@@ -1,166 +1,165 @@
 ﻿using EdunovaAPP.Data;
+using EdunovaAPP.Extensions;
 using EdunovaAPP.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 
 namespace EdunovaAPP.Controllers
 {
-
+   
     [ApiController]
     [Route("api/v1/[controller]")]
     public class PredavacController : ControllerBase
     {
+       
         private readonly EdunovaContext _context;
-
+       
         public PredavacController(EdunovaContext context)
         {
             _context = context;
         }
 
+       
         [HttpGet]
-        [Route("{sifra.int}")]
+        public IActionResult Get()
+        {
+            // kontrola ukoliko upit nije valjan
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var lista = _context.Predavaci.ToList();
+                if(lista == null || lista.Count == 0)
+                {
+                    return new EmptyResult();
+                }
+                return new JsonResult(lista.MapPredavacReadList());
+            }catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, 
+                    ex.Message);
+            } 
+        }
+
+        [HttpGet]
+        [Route("{sifra:int}")]
         public IActionResult GetBySifra(int sifra)
         {
-            // Kontrola ukoliko upit nije valjan
+            // kontrola ukoliko upit nije valjan
             if (!ModelState.IsValid || sifra <= 0)
             {
                 return BadRequest(ModelState);
             }
-
             try
             {
-                var predavac = _context.Predavaci.Find(sifra);
-
-                if (predavac == null)
+                var p = _context.Predavaci.Find(sifra);
+                if (p == null)
                 {
                     return new EmptyResult();
                 }
-
-                return new JsonResult(predavac);
+                return new JsonResult(p.MapPredavacInsertUpdatedToDTO());
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
             }
         }
 
-        [HttpGet]
-        public IActionResult Get()
-        {
-            // Kontrola ukoliko upit nije valjan
-            if(!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            try
-            {
-                var predavaci = _context.Predavaci.ToList();
-
-                if (predavaci == null || predavaci.Count == 0)
-                {
-                    return new EmptyResult();
-                }
-
-                return new JsonResult(predavaci);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
-            }
-        }
 
         [HttpPost]
-        public IActionResult Post(Predavac predavac)
+        public IActionResult Post(PredavacDTOInsertUpdate dto)
         {
-            if (!ModelState.IsValid || predavac == null)
+            if (!ModelState.IsValid || dto == null)
             {
-                return BadRequest(ModelState);
+                return BadRequest();
             }
-
             try
             {
-                _context.Predavaci.Add(predavac);
+                var entitet = dto.MapPredavacInsertUpdateFromDTO(new Predavac());
+                _context.Predavaci.Add(entitet);
                 _context.SaveChanges();
-
-                return StatusCode(StatusCodes.Status201Created, predavac);
-            }
-            catch (Exception ex)
+                return StatusCode(StatusCodes.Status201Created, entitet.MapPredavacReadToDTO());
+            }catch(Exception ex)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
             }
         }
 
+       
         [HttpPut]
         [Route("{sifra:int}")]
-        public IActionResult Put(int sifra, Predavac predavac)
+        public IActionResult Put(int sifra, PredavacDTOInsertUpdate dto)
         {
-            if (sifra <= 0 || !ModelState.IsValid || predavac == null)
+            if(sifra<=0 || !ModelState.IsValid || dto == null)
             {
                 return BadRequest();
             }
 
+
             try
             {
-                var predavacIzBaze = _context.Predavaci.Find(sifra);
 
-                if (predavacIzBaze == null)
+
+                var entitetIzBaze = _context.Predavaci.Find(sifra);
+
+                if (entitetIzBaze == null)
                 {
-                    return BadRequest();
+                    return StatusCode(StatusCodes.Status204NoContent,sifra);
                 }
 
-                // inače ovo rade mapperi
-                // za sada ručno
-                predavacIzBaze.Ime = predavac.Ime;
-                predavacIzBaze.Prezime = predavac.Prezime;
-                predavacIzBaze.Oib = predavac.Oib;
-                predavacIzBaze.Email = predavac.Email;
-                predavacIzBaze.Iban = predavac.Iban;
+                var entitet = dto.MapPredavacInsertUpdateFromDTO(entitetIzBaze);
 
-                _context.Predavaci.Update(predavacIzBaze);
+                _context.Predavaci.Update(entitetIzBaze);
                 _context.SaveChanges();
 
-                return StatusCode(StatusCodes.Status200OK, predavacIzBaze);
+                return StatusCode(StatusCodes.Status200OK,entitetIzBaze.MapPredavacInsertUpdatedToDTO());
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
             }
+
         }
 
+       
         [HttpDelete]
         [Route("{sifra:int}")]
         [Produces("application/json")]
-        public IActionResult Delete(int sifra, Predavac predavac)
+        public IActionResult Delete(int sifra)
         {
-            if (sifra <= 0 || !ModelState.IsValid)
+            if(!ModelState.IsValid || sifra <= 0)
             {
                 return BadRequest();
             }
 
             try
             {
-                var predavacIzBaze = _context.Predavaci.Find(sifra);
+                var entitetIzbaze = _context.Predavaci.Find(sifra);
 
-                if (predavacIzBaze == null)
+                if (entitetIzbaze == null)
                 {
                     return StatusCode(StatusCodes.Status204NoContent, sifra);
                 }
 
-                _context.Predavaci.Remove(predavacIzBaze);
+                _context.Predavaci.Remove(entitetIzbaze); 
                 _context.SaveChanges();
 
-                return new JsonResult(new { poruka = "Obrisano" }); // Ovo nije baš najbolja praksa ali evo i to se može
-            }
-            catch (SqlException ex)
-            {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.ErrorCode);
+                return new JsonResult(new { poruka = "Obrisano" }); // ovo nije baš najbolja praksa ali da znake kako i to može
+
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
             }
+
         }
+
+
 
     }
 }

@@ -3,14 +3,16 @@
 namespace EdunovaAPP.Models
 {
     /// <summary>
-    /// Ovo je vršna nad klasa koja služi za osnovne atribute tipa sifra, operater, datum unosa, promjene, itd.
+    /// Ovo je vršna nad klasa koja služi za osnovne atribute
+    /// tipa sifra, operater, datum unosa, promjene, itd.
     /// </summary>
     public abstract class Entitet
     {
         /// <summary>
-        /// Ovo svojstvo mi služi kao primarni ključ u bazi s generiranjem vrijednosti identiteti (1,1)
+        /// Ovo svojstvo mi služi kao primarni ključ u bazi s
+        /// generiranjem vrijednosti identity(1,1)
         /// </summary>
         [Key]
-        public int? Sifra { get; set; }
+        public int Sifra { get; set; }
     }
 }

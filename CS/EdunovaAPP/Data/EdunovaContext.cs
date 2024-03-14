@@ -6,17 +6,17 @@ namespace EdunovaAPP.Data
     /// <summary>
     /// Ovo mi je datoteka gdje ću navoditi datasetove i načine spajanja u bazi
     /// </summary>
-    public class EdunovaContext : DbContext
+    public class EdunovaContext:DbContext
     {
         /// <summary>
-        /// Konstruktor
+        /// Kostruktor
         /// </summary>
         /// <param name="options"></param>
-        public EdunovaContext(DbContextOptions<EdunovaContext> options) : base(options)
+        public EdunovaContext(DbContextOptions<EdunovaContext> options)
+            :base(options)
         {
-            
-        }
 
+        }
         /// <summary>
         /// Smjerovi u bazi
         /// </summary>
@@ -28,9 +28,9 @@ namespace EdunovaAPP.Data
 
         public DbSet<Grupa> Grupe { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             // implementacija veze 1:n
             modelBuilder.Entity<Grupa>().HasOne(g => g.Smjer);
             modelBuilder.Entity<Grupa>().HasOne(g => g.Predavac);
@@ -44,6 +44,7 @@ namespace EdunovaAPP.Data
                 c => c.HasOne<Grupa>().WithMany().HasForeignKey("grupa"),
                 c => c.ToTable("clanovi")
                 );
+
         }
     }
 }

@@ -1,166 +1,168 @@
 ﻿using EdunovaAPP.Data;
+using EdunovaAPP.Extensions;
 using EdunovaAPP.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 
 namespace EdunovaAPP.Controllers
 {
-
+   
     [ApiController]
     [Route("api/v1/[controller]")]
     public class PolaznikController : ControllerBase
     {
+       
         private readonly EdunovaContext _context;
-
+       
         public PolaznikController(EdunovaContext context)
         {
             _context = context;
         }
 
+       
         [HttpGet]
-        [Route("{sifra.int}")]
+        public IActionResult Get()
+        {
+            // kontrola ukoliko upit nije valjan
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var lista = _context.Polaznici.ToList();
+                if(lista == null || lista.Count == 0)
+                {
+                    return new EmptyResult();
+                }
+                return new JsonResult(lista.MapPolaznikReadList());
+            }catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, 
+                    ex.Message);
+            } 
+        }
+
+        [HttpGet]
+        [Route("{sifra:int}")]
         public IActionResult GetBySifra(int sifra)
         {
-            // Kontrola ukoliko upit nije valjan
+            // kontrola ukoliko upit nije valjan
             if (!ModelState.IsValid || sifra <= 0)
             {
                 return BadRequest(ModelState);
             }
-
             try
             {
-                var polaznik = _context.Polaznici.Find(sifra);
-
-                if (polaznik == null)
+                var p = _context.Polaznici.Find(sifra);
+                if (p == null)
                 {
                     return new EmptyResult();
                 }
-
-                return new JsonResult(polaznik);
+                return new JsonResult(p.MapPolaznikInsertUpdatedToDTO());
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
             }
         }
 
-        [HttpGet]
-        public IActionResult Get()
-        {
-            // Kontrola ukoliko upit nije valjan
-            if(!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            try
-            {
-                var polaznici = _context.Polaznici.ToList();
-
-                if (polaznici == null || polaznici.Count == 0)
-                {
-                    return new EmptyResult();
-                }
-
-                return new JsonResult(polaznici);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
-            }
-        }
 
         [HttpPost]
-        public IActionResult Post(Polaznik polaznik)
+        public IActionResult Post(PolaznikDTOInsertUpdate dto)
         {
-            if (!ModelState.IsValid || polaznik == null)
+            if (!ModelState.IsValid || dto == null)
             {
-                return BadRequest(ModelState);
+                return BadRequest();
             }
-
             try
             {
-                _context.Polaznici.Add(polaznik);
+                var entitet = dto.MapPolaznikInsertUpdateFromDTO(new Polaznik());
+                _context.Polaznici.Add(entitet);
                 _context.SaveChanges();
-
-                return StatusCode(StatusCodes.Status201Created, polaznik);
-            }
-            catch (Exception ex)
+                return StatusCode(StatusCodes.Status201Created, entitet.MapPolaznikReadToDTO());
+            }catch(Exception ex)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
             }
         }
 
+       
         [HttpPut]
         [Route("{sifra:int}")]
-        public IActionResult Put(int sifra, Polaznik polaznik)
+        public IActionResult Put(int sifra, PolaznikDTOInsertUpdate dto)
         {
-            if (sifra <= 0 || !ModelState.IsValid || polaznik == null)
+            if(sifra<=0 || !ModelState.IsValid || dto == null)
             {
                 return BadRequest();
             }
 
+
             try
             {
-                var polaznikIzBaze = _context.Polaznici.Find(sifra);
 
-                if (polaznikIzBaze == null)
+
+                var entitetIzBaze = _context.Polaznici.Find(sifra);
+
+                if (entitetIzBaze == null)
                 {
-                    return BadRequest();
+                    return StatusCode(StatusCodes.Status204NoContent,sifra);
                 }
 
-                // inače ovo rade mapperi
-                // za sada ručno
-                polaznikIzBaze.Ime = polaznik.Ime;
-                polaznikIzBaze.Prezime = polaznik.Prezime;
-                polaznikIzBaze.Oib = polaznik.Oib;
-                polaznikIzBaze.Email = polaznik.Email;
-                polaznikIzBaze.BrojUgovora = polaznik.BrojUgovora;
 
-                _context.Polaznici.Update(polaznikIzBaze);
+                entitetIzBaze = dto.MapPolaznikInsertUpdateFromDTO(entitetIzBaze);
+                
+
+                _context.Polaznici.Update(entitetIzBaze);
                 _context.SaveChanges();
 
-                return StatusCode(StatusCodes.Status200OK, polaznikIzBaze);
+                return StatusCode(StatusCodes.Status200OK,
+                    entitetIzBaze.MapPolaznikInsertUpdatedToDTO());
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
             }
+
         }
 
+       
         [HttpDelete]
         [Route("{sifra:int}")]
         [Produces("application/json")]
-        public IActionResult Delete(int sifra, Polaznik polaznik)
+        public IActionResult Delete(int sifra)
         {
-            if (sifra <= 0 || !ModelState.IsValid)
+            if(!ModelState.IsValid || sifra <= 0)
             {
                 return BadRequest();
             }
 
             try
             {
-                var polaznikIzBaze = _context.Polaznici.Find(sifra);
+                var entitetIzbaze = _context.Polaznici.Find(sifra);
 
-                if (polaznikIzBaze == null)
+                if (entitetIzbaze == null)
                 {
                     return StatusCode(StatusCodes.Status204NoContent, sifra);
                 }
 
-                _context.Polaznici.Remove(polaznikIzBaze);
+                _context.Polaznici.Remove(entitetIzbaze); 
                 _context.SaveChanges();
 
-                return new JsonResult(new { poruka = "Obrisano" }); // Ovo nije baš najbolja praksa ali evo i to se može
-            }
-            catch (SqlException ex)
-            {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.ErrorCode);
+                return new JsonResult(new { poruka = "Obrisano" }); // ovo nije baš najbolja praksa ali da znake kako i to može
+
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
             }
+
         }
+
+
 
     }
 }

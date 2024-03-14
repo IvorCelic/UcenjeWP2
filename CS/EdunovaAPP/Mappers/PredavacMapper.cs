@@ -3,14 +3,14 @@ using EdunovaAPP.Models;
 
 namespace EdunovaAPP.Mappers
 {
-    public class SmjerMapper
+    public class PredavacMapper
     {
         public static Mapper InicijalizirajReadToDTO()
         {
             return new Mapper(
                 new MapperConfiguration(c =>
                 {
-                    c.CreateMap<Smjer, SmjerDTORead>();
+                    c.CreateMap<Predavac, PredavacDTORead>();
                 })
                 );
         }
@@ -20,7 +20,7 @@ namespace EdunovaAPP.Mappers
             return new Mapper(
                 new MapperConfiguration(c =>
                 {
-                    c.CreateMap<SmjerDTORead, Smjer>();
+                    c.CreateMap<PredavacDTORead, Predavac>();
                 })
                 );
         }
@@ -30,7 +30,7 @@ namespace EdunovaAPP.Mappers
             return new Mapper(
                 new MapperConfiguration(c =>
                 {
-                    c.CreateMap<Smjer, SmjerDTOInsertUpdate>();
+                    c.CreateMap<Predavac, PredavacDTOInsertUpdate>();
                 })
                 );
         }
